@@ -24,3 +24,21 @@ Det kommer nu stå att det finns 1 "Untracked file" som heter "test.txt"
 
 
 Skriv "git add test.txt"
+
+Filen är nu "staged for commit". Skriv "git status" för att bekräfta detta.
+
+
+Skriv " git commit -m "la till test" "
+
+-m betyder att man efter det skriver ett meddelande i citation tecken, "la till test". git commit lägger till alla
+filer som man har lagt till genom git add.
+
+Skriv "git pull"
+
+Drar ner nya eller ändrade filer från github till det lokala repository. 
+Detta måste alltid göras innan ni pushar. Detta eftersom när flera jobbar på ett projekt samtidigt så måste man
+se till att man har den senaste versionen så man inte pushar upp filer som blivit ändrade.
+
+Skriv "git push"
+
+Pushar upp filen till github. Ni behöver skriva in erat användarnamn och lösenord till github.
