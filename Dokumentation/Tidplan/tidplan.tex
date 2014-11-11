@@ -30,75 +30,75 @@
 	\begin{itemize}
     \item Tidplanen lämnas in (Tisdag)
     \item Bygge av enhjulingen
-    \item Modellering av processen
+    \item Modellering av inertia processen
     	\begin{itemize}
 		\item Bestäm differential ekvationen för processen.
     	\item Bestäm parametrar.
-		\end{itemize}        
+		\end{itemize}
+	\item Design av regulatorn för lateral balans
+	\item Börja på C-kodning, testa av vi kan koda så att hjulen rör sig. Testa på riktiga processen så att koden fungerar.        
 	\end{itemize}
     
     \subsection*{Vecka 3}
     \begin{itemize}
     \item Lämna in första rapporten (måndag).
-	\item Skriv kravspecifikation för regulatorn och mjukvaran.
-    \item Design av regulatorn
-    \item Test av regulatorn via simulink
-    \item Börja på C-kodning, testa av vi kan koda så att hjulen rör sig. Testa på riktiga processen så att koden fungerar.
+	\item Bestäm krav för regulatorn
+	\item Modellering av processen för enhjulingen utan tröghetshjulet.
+    \item Design av regulatorn för lateral balans.
+    \item Design av regulatorn för enhjulingen.
+    \item Test av regulatorn via simulink.
+    \item Test av lateralbalansen via den riktiga processen.
 	\end{itemize}
     
     \subsection*{Vecka 4}
     \begin{itemize}
-	\item Design av regulatorn.
+	\item Design av regulatorerna.
     \item Test av designen.
-    \item Högnivådesign för implementering av regulatorn.
-    \item Börja på implementering av regulatorn.
+    \item Börja på implementering av regulatorn. Testa de två processerna för sig.
+    \item Båda processerna ska kunna regleras bra, kombinera.
 	\end{itemize}
     
     \subsection*{Vecka 5}
     \begin{itemize}
     \item Skicka in andra rapporten (Fredag)
-	\item Implementation av regulatorn.
-    \item Slutlig design av regulatorn.
+    \item Slutlig design av den kombinerande regulatorn.
     \item Slutligt test av regulatorns design.
+	\item Implementation av regulatorn.
+	\item Börja skriv slutrapporten.    
 	\end{itemize}
     
     \subsection*{Vecka 6}
     \begin{itemize}
 	\item Slutlig implementation av regulatorn.
     \item Förbättra regulatordesignen vid behov.
-    \item Påbörja den slutliga rapporten.
+    \item Skriv den slutliga rapporten.
+    \item Lägg till tillägg i mån av tid.
 	\end{itemize}
     
     \subsection*{Vecka 7}
     \begin{itemize}
 	\item Test av processen.
-    \item Testa hjulen oberoende.
-    \item Skriv slutlig rapport.
+    \item Testa hjulen oberoende, testa tillsammans.
+    \item Skriv klart slutlig rapport.
 	\end{itemize}
 
 9 Januari: Skicka in slutrapport
 
 \section{Arbetsområden}
 	
-    \subsection*{Kravspecifikation}
+    \subsection*{Regulatordesign}
 
     \begin{itemize}
-    \item [] Kraven för vad systemet ska klara av. Det innefattar fas marginal, tid för tillståndskonvergering osv.
+    \item [] Regulatorn för tröghetshjulet.
+    \item [] Regulatorn för enhjulingen.
     \end{itemize}
     
-    \subsection*{Utveckling}
+    \subsection*{Mjukvarudesign}
     
     \begin{itemize}
-    \item [] Design av regulatorn
-    \item [] Implemeteringen av regulator via C.
+    \item [] Implementation av regulatorn via C
     \end{itemize}
     
-    \subsection*{Testning}
-    
-    \begin{itemize}
-    \item [] Test av regulatorn via simulink
-    \item [] Test av koden via den riktiga processen.
-    \end{itemize}
     
     
 \section{Arbetsbörda}
