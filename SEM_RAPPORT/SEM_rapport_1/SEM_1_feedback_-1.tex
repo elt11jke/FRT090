@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{graphicx}
+%\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{cleveref}
+%\usepackage{subfig}	
+\usepackage{subcaption}
+\usepackage[numbered,framed]{mcode}
+\usepackage{fixltx2e}				% For the \textsubscript{} usage
+\usepackage{textgreek}	
+
+\author{Grupp B}
+\title{FRT090 \\Feedback Seminar 1(Modeling/Design)  }				% \\ <=> NEW LINE IN LaTex
+\date{November 2014}
+
+
+\begin{document}
+\maketitle	% prints the preamble onto the pdf
+\newpage
+
+
+\section {Overview over the project and its objectives}
+
+Our system is a unicycle which will maintain the balance in two directions. The first being the pitch and the second being roll. It should maintain balance in realtime and withstand small disturbances meaning a small puch in the pitch or roll direction. The system is being divided into two parts, the first being the part which will maintain the balance in the roll direction. The realisation will be a inverted pendulum with a inertia wheel at the top. While the balancing part in the pitch direction will be achieved with a wheel attached at the end of the inverted pendulum. In other words there will be two processes which will be regulated, the inverted pendulum  with the inertia wheel and the inverted pendulum with a wheel at the bottom. 
+
+
+
+\section{Discussion on the modeling needs in the project}
+
+\subsection{Why is modeling needed and what should models be used for}
+
+The modeling part is essential to understand how the process acts, how the different physical quantities interact (how the velocity and acceleration for instances look like and what affect them). In our chase we need to design a wheel for the inertia but different dimensions will give different result but as engineers we want to maximize the effect we need without maximizing the negative effect on the objective of the design. So in essence we use models to design parts needed in the implementation. However there more models can be used for as to investigate how the robustness theoretically, investigate which regulator is suited for this specific process and simulate it for example. But most important to investigate the stability of the model thru some standard calculations (look at the transfer function which will give us the poles).   
+
+\subsection{How is a model quality assessed}
+
+The best way to find out the quality of the modell is to simulate it and se if the result is reasonable with the expected result (in the easier cases if the process is to complex it is hard to predict the result). Make use of prior knowledge of similar processes.    
+
+
+\section{Description of the models developed so far in the project }
+
+
+
+
+\section{Motivation for the selected modeling \& design approaches}
+
+
+\section{Discussion on experience with respect to modeling and design}
+
+\end{document}
