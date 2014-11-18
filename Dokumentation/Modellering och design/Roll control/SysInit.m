@@ -1,12 +1,17 @@
 clear all
 close all
 
-modellinertia2
+modelinertia
 Cindesign
+
+x10=0.02;
+x20=0;
+x30=0;
+x40=0;
 
 T= minreal(zpk(Cin*Pin(1,1)/(1+ Cin*Pin(1,1))))
 
-S= minreal(zpk(1/(1+ Cin*Pin(1))))
+S= minreal(zpk(1/(1+ Cin*Pin(1,1))))
 
 pole(T)
 
