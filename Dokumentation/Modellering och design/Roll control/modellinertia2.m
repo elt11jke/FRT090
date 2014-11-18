@@ -21,11 +21,24 @@ b2= 1/Jw;
 
 %Matriser
 A=[0 1 0 0; a 0 0 0; 0 0 0 1; 0 0 0 0];
-B= [0; b1; 0; -b2];
-B_d = [0; 1; 0; 0] 
-C=eye(4);
+B_tau= [0; b1; 0; -b2];
+B_d = [0; 1; 0; 0];
+B= [B_tau B_d]
+C=[1 0 0 0];
 D=0;
 
 %Systemet
-SYSinertia= ss(A,[B B_d],C,D);
+SYSinertia= ss(A,B,C,D);
 Pin = zpk(tf(SYSinertia))
+
+
+%State feedback
+Q=eye(4);
+R=[1 0; 0 100];
+lr=1;
+
+[L,S,E] = lqr(SYSinertia,Q,R)
+
+%Systemet med state feedback
+SYSinertia = ss(A-B*L,B*lr,C,D);
+PinSF= zpk(tf(SYSinertia))

@@ -1,12 +1,12 @@
 clear all
 close all
 
-modellinertia
+modellinertia2
 Cindesign
 
-T= minreal(zpk(Cin*Pin/(1+ Cin*Pin)))
+T= minreal(zpk(Cin*Pin(1,1)/(1+ Cin*Pin(1,1))))
 
-S= minreal(zpk(1/(1+ Cin*Pin)))
+S= minreal(zpk(1/(1+ Cin*Pin(1))))
 
 pole(T)
 
