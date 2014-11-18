@@ -22,7 +22,7 @@
 
 \section {Overview over the project and its objectives}
 
-Our system is a unicycle which will maintain the balance in two directions. The first being the pitch and the second being roll. It should maintain balance in realtime and withstand small disturbances meaning a small puch in the pitch or roll direction. The system is being divided into two parts, the first being the part which will maintain the balance in the roll direction. The realization will be a inverted pendulum with a inertia wheel at the top. While the balancing part in the pitch direction will be achieved with a wheel attached at the end of the inverted pendulum. In other words there will be two processes which will be regulated, the inverted pendulum  with the inertia wheel and the inverted pendulum with a wheel at the bottom. 
+Our system is a unicycle which will maintain the balance in two directions. The first being the pitch and the second being roll. It should maintain balance in realtime and withstand small disturbances meaning a small push in the pitch or roll direction. The system is being divided into two parts, the first being the part which will maintain the balance in the roll direction and the second which will maintain balance in the pitch direction. The realization will be a inverted pendulum with a inertia wheel at the top. While the balancing part in the pitch direction will be achieved which a wheel attached at the end of the inverted pendulum. In other words there will be two processes which will be regulated, the inverted pendulum  with the inertia wheel and the inverted pendulum with a wheel at the bottom. 
 
 
 
@@ -30,7 +30,14 @@ Our system is a unicycle which will maintain the balance in two directions. The 
 
 \subsection{Why is modeling needed and what should models be used for}
 
-The modeling part is essential to understand how the process acts, how the different physical quantities interact (how the velocity and acceleration for instances look like and what affect them). In our chase we need to design a wheel for the inertia but different dimensions will give different result but as engineers we want to maximize the effect we need without maximizing the negative effect on the objective of the design. So in essence we use models to design parts needed in the implementation. However there more models can be used for as to investigate how the robustness theoretically, investigate which regulator is suited for this specific process and simulate it for example. But most important to investigate the stability of the model thru some standard calculations (look at the transfer function which will give us the poles).   
+We intend to model two processes parallel and at the end to set them together and tune them so they work together. as well. The first process we model is the inertia wheel with the rod, looks like the inverted pendulum however the bottom is stationary while the inertia wheel is at the top and can spin freely to maintain the balance for the rod to stand up straight.
+
+The second main process is the rod with the wheel at the bottom which spin freely, as the first one this one also looks like the inverted pendulum but in this case the wheel at the bottom has the mission to maintain the balance to the rod. 
+
+We will use our models to investigate the stability of the processes, which regulator is best suited and simulate it in Matlab with the program Simulink. Further we also intend to use our models to understand how the process acts for different parameters e.g. how stabile is our process if we move the center of gravity lower down or higher up.
+
+More specific to the process with the inertia wheel we also need to come up with a model for the inertia wheel, the dimensions of it with other words which demention suits us best to achieve the result we desire. In this case we would want to have as much torque as possible at the same time as we want to have so low mass as possible. So in other words we want the perfect trade of of the two properties. 
+
 
 \subsection{How is a model quality assessed}
 
@@ -62,11 +69,17 @@ The model we have so far is given in by equation \ref{equ:inverted_pendulum} whi
 
 \section{Motivation for the selected modeling \& design approaches}
 
-We choose to go with the Newton model which seems to be the most familiar model for us in the group due to prior knowledge with Newtons laws of forces and torques. There is other approaches which can be Lagrange's mechanics which is a essentially a statement derived from Newtons laws which simplify the work of describing more complex systems. Regarding the design approaches one would like to have some characteristics as fast response time, minimal overshoot and be able to handle disturbences for the process which can be achieved with a PID regulator. Luckily there is a way of specifying the demands and Simulink does the calculations of the parameters in the PID regulator. 
+We choose to go with the Newton model which seems to be the most familiar model for us in the group due to prior knowledge with Newtons laws of forces and torques. There is other approaches which can be Lagrange's mechanics which is a essentially a statement derived from Newtons laws which simplify the work of describing more complex systems. Regarding the design approaches one would like to have some characteristics as fast response time, minimal overshoot and be able to handle disturbances for the process which can be achieved with a PID regulator. Luckily there is a way of specifying the demands and Simulink does the calculations of the parameters in the PID regulator. 
 
 
 \section{Discussion on experience with respect to modeling and design}
 
+
+
 The biggest experience was that one need to have a good model for the system to be able to find out how the process behaves and then simulate it in Simulink with Matlab to actually se where the pools are placed. But before simulating it one need to do some calculations by hand so one can compare the handwritten solution with the simulation. Because maybe in the process of simulating the process one can do mistakes, these mistakes are easy to find if one have a handwritten result to compare with.  
+
+An another big experiencer was to build up a process description from scratch so to speak. Also called system identification which means that we found a model then the corresponding differential equation from there to the state equations. Furthermore the transfer function for the process, investigate the poles and lastly investigate the stability from the placing of the poles. So in essence the steps was not that unique but all the steps together gave us an insight how a project is built up from scratch which we find to be a unique experience. 
+
+A last point to be made is that simulations in simulink gave us a huge advantage due to the simplicity to se all the properties of the closed loop with a PID regulator, e.g. the step response, bode plot, Nyquist digram and so in. 
 
 \end{document}
