@@ -15,17 +15,16 @@ Jp= m*(l^2);
 Jw= (1/2)*M*(R^2);
 
 a= (g/Jp)*(l*m + L*M);
-b1= 1/(Jp+Jw + M*(L^2));
+b1= 1/Jp;
 b2= 1/Jw;
 
 
 %Matriser
 A=[0 1 0 0; a 0 0 0; 0 0 0 1; 0 0 0 0];
 B= [0; b1; 0; -b2];
-B_d = [0; 1; 0; 0] 
-C=eye(4);
+C=[1 0 0 0];
 D=0;
 
 %Systemet
-SYSinertia= ss(A,[B B_d],C,D);
+SYSinertia= ss(A,B,C,D);
 Pin = zpk(tf(SYSinertia))
