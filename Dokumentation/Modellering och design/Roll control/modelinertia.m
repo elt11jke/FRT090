@@ -40,13 +40,25 @@ SYSinertia= ss(A,B,C,D);
 Pin = zpk(tf(SYSinertia));
 
 
+% %State feedback (funkar inte)
+% Q=eye(3);
+% R=[1 0; 0 100];
+% lr=1;
+% 
+% [L,S,E] = lqr(SYSinertia,Q,R);
+% 
+% %Systemet med state feedback
+% SYSinertia = ss(A-B*L,B*lr,C,D);
+% PinSF= zpk(tf(SYSinertia))
+
 %State feedback
-Q=eye(3);
-R=[1 0; 0 100];
-lr=1;
+q11 = 1/(1.57);
+q22 = 1/(0.349);
+q33 = 1/(800);
+Q = [q11 0 0; 0 q22 0; 0 0 q33];
+R = 1/(0.384);
 
-[L,S,E] = lqr(SYSinertia,Q,R);
+[L,S,E] = lqr(A,B_tau,Q,R);
+PinSF = zpk(tf(ss(A-B_tau*L,B,C,D)));
 
-%Systemet med state feedback
-SYSinertia = ss(A-B*L,B*lr,C,D);
-PinSF= zpk(tf(SYSinertia))
+Asf = A-B_tau*L;
