@@ -57,6 +57,7 @@ q22 = 1/(0.349);
 q33 = 1/(800);
 Q = [q11 0 0; 0 q22 0; 0 0 q33];
 R = 1/(0.384);
+ang = [1 0 0];
 
 [L,S,E] = lqr(A,B_tau,Q,R);
 PinSF = zpk(tf(ss(A-B_tau*L,B,C,D)));

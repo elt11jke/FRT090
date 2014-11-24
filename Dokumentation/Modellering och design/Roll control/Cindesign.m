@@ -11,7 +11,7 @@
 %Cin = K*(1 + 1/(s*Ti) + Td*s);
 
 
-%Parametrar efter tuning (ingen störning)
+%Parametrar efter tuning (ingen stï¿½rning)
 
 % Kt= 34.8082;
 % Tit= 42.4085;
@@ -19,11 +19,12 @@
 % N=328.9617;
 
 
-%Parametrar efter tuning (störning)
+%Parametrar efter tuning (stï¿½rning)
 
 Kt= 59.1186;
 Tit= 72.0271;
 Tdt= 4.4053;
 N=328.9617;
 
-Cin = Kt + Tit*(1/s) + Tdt*(N/(1+N*(1/s)));
+% Cin = Kt + Tit*(1/s) + Tdt*(N/(1+N*(1/s)));
+Cin = (s-91)/((s+100)^2);
