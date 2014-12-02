@@ -1,0 +1,21 @@
+import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+
+// import for the accelerometer
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+
+
+
+public class Accelerometer {
+	
+	 // Creation av datalogger
+    DataLogger dl = new DataLogger("ev3_acce_Meter_data.txt");
+	
+	
+	HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer();
+	
+
+}

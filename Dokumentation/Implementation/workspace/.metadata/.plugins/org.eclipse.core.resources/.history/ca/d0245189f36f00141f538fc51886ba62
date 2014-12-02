@@ -1,0 +1,57 @@
+import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+
+// import for the accelerometer
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+
+
+
+public class Accelerometer {
+	
+	static HiTechnicAccelerometer acce_Meter;
+	static DataLogger dl = new DataLogger("ev3_acce_Meter_data.txt"); ;
+	static float sample[] = new float[3]; 
+	static double angle;
+	
+	public static void main(String[] args) throws InterruptedException {
+	// Define define the acce_Meter
+		acce_Meter = new HiTechnicAccelerometer(SensorPort.S1);
+		get_Data();
+		
+	
+			dl.close();
+	       LCD.clear();
+	       LCD.drawString("Program stopped", 0, 0);
+	       Thread.sleep(2000);
+	
+	}
+	
+	
+	protected static void get_Data(){
+		while (! Button.ESCAPE.isDown()){
+			  acce_Meter.fetchSample(sample, 0);
+			
+			  
+			  // calc of the angle
+			  
+			  angle = Math.acos( sample[2]/ 9.81 );
+			  
+			   LCD.drawString("Test Acce_Meter", 3, 1);
+	    	   LCD.drawString("Angle:", 0, 2);
+	    	   LCD.drawString(""+angle, 5, 2);
+	    	   
+	    	   LCD.drawString("z", 0, 3);
+	    	   LCD.drawString(""+sample[2], 5, 3);
+	           dl.writeSample(sample[2]);
+	         
+	     }
+		
+		
+		
+	}
+	
+}
