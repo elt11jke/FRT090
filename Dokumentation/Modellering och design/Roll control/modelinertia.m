@@ -6,11 +6,11 @@ s=tf('s');
 g= 9.81;
 
 %Parametrar som vi ändrar
-m= 0.70;
-M= 0.15;
-l= 0.15;
-L= 0.30;
-R= 0.10;
+m= 0.771;
+M= 0.340;
+l= 0.21;
+L= 0.41;
+R= 0.15;
 Jp= m*(l^2);
 Jw= (1/2)*M*(R^2);
 
@@ -54,12 +54,12 @@ Pin = zpk(tf(SYSinertia));
 %State feedback
 q11 = 1/(1.57);
 q22 = 1/(0.349);
-q33 = 1/(800);
+q33 = 1/(16);
 Q = [q11 0 0; 0 q22 0; 0 0 q33];
-R = 1/(0.384);
-ang = [1 0 0];
+R = 1/(0.384*2);
+ang = [1 0];
 
-[L,S,E] = lqr(A,B_tau,Q,R);
+[L,S,E] = lqr(A,B_tau,Q,R)
 PinSF = zpk(tf(ss(A-B_tau*L,B,C,D)));
 
 Asf = A-B_tau*L;
