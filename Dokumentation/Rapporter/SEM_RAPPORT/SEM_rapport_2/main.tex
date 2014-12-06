@@ -90,11 +90,19 @@ In simulink we had to take into account the actuator, being the motor. The torqu
 
 
 
-For the state feedback implementation we used  the floating point algorithm, we will not go in to details how the whole implementation process has been made but there are quite important steps in the implenting process which are worthy to be underlined.
+For the state feedback implementation we used  the floating point algorithm, we will not go in to details how the whole implementation process has been made but there are quite important steps in the implemting process which are worthy to be underlined.
 
-To descretize the continouse parameters in the our system we used the zero hold method, 
+To descretize the continouse parameters in the our system we used the zero hold method.
 
-One problematic issue was that when parameters (the estimated parameters in the model) are changed due to the testing experiments when the model parameteres are changed that is to say the new A and B matrices are dependent on the sampling time (h).
+One problematic issue was that when parameters (the estimated parameters in the model) are changed due to the testing experiments when the model parameters are changed that is to say the new A and B matrices are dependent on the sampling time (h). The sampling time is still a issue and have not been resolved but are planned to be.
 
+Moving on to the programs we use and why we choose to work with them. The operating system we choose to work with is the Windows 7 because of the simplicity compared to working with the Linux operating system. Next we have the main programing language which we choose to be Lejos which is a extension of java and incorporates all that is Java and it's benefits. We are all in the group familiar with the java language and therefor this was the language for us. The GUI that we write the java programs is in Eclipse due to the familiar appearance of it and functionality. With Eclipse we can run programs directly in the ev3. However sending data from the ev3 to the computer is managed with the free program which is Winscp (a client server program) that allows us to send data from the ev3 to the computer via bluetooth and also comes with a easy to work with GUI ( GraphicUserInterface ).
+
+The format we use to send data from the ev3 to the computer is "txt" which can easily be managed with matlab which allow us to plot the data directly in matlab. However we can not observe the data in realtime. Furthermore we have been experiencing slow cycles in the main loop of our program which is the discretization of the state feedback. Therefor we are now saving all our data in multiple arrays and after the test run the program writes the data from the arrays to the txt file to be further send to the computer for further processing.  
+
+
+Furthermore we use state feedback which means that we need to measure the tree states that we have which in this case are the angle theta, angle velocity theta dot and the velocity of the inertia wheel. \\To obtain the angle we use two sensors, the gyro and the accelerometer sensor. In this case we are using the "NXT Gyro Sensor for LEGO Mindstorms NXT" respectively HiTechnic NXT AccelerationSensor for LEGO Mindstorms NXT. The gyro sensor gives us the change in radians which we integrate in our code while the accelerometer gives us the angle directly. Because of the nature of the accelerometer which is that it is very noise (does not give a stable signal) we incorporate the pyrometer as well. However the gyro sensor has also flaws which is that after some time the angle of the gyro sensor increases from the actual angle because of the integration. Therefor we use only want the low frequency of the accelerometer end high frequency of the gyroscope so we use low pass filter for the accelerometer and a high pass filter for the gyro sensor. This method of using the two sensors together complementary filter. 
+
+To obtain the change in angle we just use the gyroscopes measurement while to obtain the speed of the inertia wheel we use incorporated methods given in Lejos to get the amount of change in radians and divide with the cycle of the main loop (the time between measurement of the change in radians). 
 
 \end{document}
