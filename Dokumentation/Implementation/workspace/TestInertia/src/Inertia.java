@@ -13,13 +13,6 @@ import lejos.robotics.EncoderMotor;
 public class Inertia {
 	
 
-	  
-	
-	
-	
-	
-	
-	
 	public static void main(String[] args) throws InterruptedException {
 		
 		//INIT PROGRAM
@@ -34,12 +27,7 @@ public class Inertia {
 		m1.setPower(100);
 		m2.setPower(100);
 
-		
-		
-	
-	
 
-		
 		m1.backward();
 		
 		

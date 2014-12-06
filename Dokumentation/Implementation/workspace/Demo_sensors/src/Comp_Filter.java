@@ -9,11 +9,16 @@ import lejos.hardware.Button;
 
 public class Comp_Filter {
 	
+
+	static final long h= 10;
+	
 	//For the acce meter
 	static HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer(SensorPort.S1); ;
 	static float sample_Acce[] = new float[3]; 
 	static double angle_Acce;
 	static double radians;
+	
+	static float angle_gyroscope_extra=0;
 	
 	// For the gyroscope
 	static  double angle_Gyro=0;
@@ -28,13 +33,23 @@ public class Comp_Filter {
 	static double comp_filter_angle=0;
 	static double A = 0.95;
 	
+	static float angle_gyro=0;
+	
+	
+	
+	
 	  
 	
 	
 	
 	
 	
-	static DataLogger dl = new DataLogger("complementary_filter_angle.txt"); 
+	static DataLogger dl_1 = new DataLogger("acce_angle.txt"); 
+	static DataLogger dl_2 = new DataLogger("gyroscope_angle.txt"); 
+	static DataLogger dl_3 = new DataLogger("gyroscope_angle_extra.txt"); 
+	static DataLogger dl_4 = new DataLogger("complementary_filter_angle.txt"); 
+	
+	
 	
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -44,10 +59,7 @@ public class Comp_Filter {
 		Button.waitForAnyPress();
 		LCD.clearDisplay();
 		//INIT PROGRAM ENDS
-		
-		
-	
-		
+
 		// For the filter calculations
 		complementary_filter_calc();
 		//END
@@ -92,24 +104,38 @@ public class Comp_Filter {
 	public static void complementary_filter_calc(){
 		
 			calc_offset_gyro();
-		
+			LCD.clearDisplay();
+			LCD.drawString("calibrate done", 0, 2);
+			LCD.drawString("Programmed started", 0, 5);
+			
+		long t =  System.currentTimeMillis();
 		while (! Button.ESCAPE.isDown()){
 			
 			get_Data_Acce();
 			get_Data_Gyro();
+			angle_gyro  =  angle_gyro + (float) ( (float) sample_1 * 0.01) ;
 			comp_filter_angle = A * (comp_filter_angle + sample_1 * 0.01) + (1-A)*(angle_Acce) ;
-			// Draw the result on the display 
-			LCD.drawString("Test Comple_Filter_Meter", 1, 1);
-	    	LCD.drawString("Comp_filter_angle:", 0, 2);
-	    	LCD.drawString(""+comp_filter_angle, 0, 3);
-	    	dl.writeSample(sample_Acce[2]);
-	    	try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			angle_gyroscope_extra = (float) (comp_filter_angle + sample_1 * 0.01) ;
+	    	dl_1.writeSample((float) angle_Acce);
+	    	dl_2.writeSample((float) angle_gyro);
+	    	
+	    	dl_3.writeSample(angle_gyroscope_extra);
+	    	dl_4.writeSample((float) comp_filter_angle);
+	    	
+	    	t=  t + h ;
+			long duration= t - System.currentTimeMillis();
+			
+			if (duration > 0) {
+				try {
+					Thread.sleep(duration);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		LCD.drawString("Programmed stopped", 0, 3);
+		
 	}
 
 }

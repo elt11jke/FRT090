@@ -14,7 +14,7 @@ R= 0.15;
 Jp= m*(l^2);
 Jw= (1/2)*M*(R^2);
 
-a= (g/Jp)*(l*m + L*M);
+a= (g/(Jp+Jw+M*(L^2)))*(l*m + L*M);
 b1= 1/(Jp+Jw + M*(L^2));
 b2= 1/Jw;
 ki=1/20;
@@ -52,12 +52,12 @@ Pin = zpk(tf(SYSinertia));
 % PinSF= zpk(tf(SYSinertia))
 
 %State feedback
-q11 = 1/(1.57);
-q22 = 1/(0.349);
-q33 = 1/(16);
+q11 = 1/(1.57^2);
+q22 = 1/(0.349^2);
+q33 = 1/(16^2);
 Q = [q11 0 0; 0 q22 0; 0 0 q33];
-R = 1/(0.384*2*4);
-ang = [1 0];
+R = 1/(0.384^2);
+ang = [1 0 0];
 
 [L,S,E] = lqr(A,B_tau,Q,R)
 PinSF = zpk(tf(ss(A-B_tau*L,B,C,D)));
