@@ -1,0 +1,149 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+%_____________________________________________________________________________________
+% THIS SOME THING THAT WILL GET OUR FIGURES IN THE RIGHT PLACE TAKEN FROM THE INTERNET ON THE WEBPAGE; http://mintaka.sdsu.edu/GF/bibliog/latex/floats.html
+
+%%% START %%%
+% Alter some LaTeX defaults for better treatment of figures:
+    % See p.105 of "TeX Unbound" for suggested values.
+    % See pp. 199-200 of Lamport's "LaTeX" book for details.
+    %   General parameters, for ALL pages:
+    \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+    \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    \setcounter{dbltopnumber}{2}    % for 2-column pages
+    \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+    \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+	% N.B.: floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+	% remember to use [htp] or [htpb] for placement
+    
+%%% END %%%
+%_____________________________________________________________________________________
+
+
+
+
+
+
+\title{Design and Control of a Lego Unicycle}
+\author{Group B: Johan Kellerth Fredlund | Koshin Aliabase\\ Santiago Castro Chans | Sadik Kenan Sulejmanovic}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Your abstract.
+\end{abstract}
+
+\tableofcontents
+
+\section{Author's note}
+
+\section{Introduction}
+
+Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started. If you have a question, please use the help menu (``?'') on the top bar to search for help or ask us a question.
+
+\section{Construction}
+
+	\subsection{Ev3}
+    \subsection{Sensors}
+    	\subsubsection{HighTechinic Gyro Sensor}
+        The Gyro sensor gives the rate of change in x, y and z orientation in radians per second. More specified details about the sensor can be seen in the table \ref{table:Gyro_sensor}. The first row shows how long time it takes for our program to fetch a sample, second row shows how accurate the sensor is given by specification by the manufacturer and the last line shows the update time of the sensor also given by the manufacturer. 
+\\In nature all gyroscopes has a drift and offset, both are unwanted. The drift means that the rate of change will increase with time even though the sensor is stationary. Secondly the offset is the property that give a constant value although the sensor is stationary. How we dealt with these problems will be explained in later sections. Lastly can we see the gyro sensor in figure \ref{fig:NXT_Gyro_Sensor}.  
+        
+        
+        % THE TABLE DESCRIBING THE PROP. of the gyro sensor
+        \begin{table}[h]
+		\center
+		\begin{tabular}{|c |c|}
+			\hline
+			 Refresh time in program & 0-1 ms   \\ 
+			\hline
+			Accuracy &  $\pm 1$ degree  \\ 
+			\hline
+			Update of value & 300 times / second \\
+	        		\hline
+		\end{tabular}
+		\caption{Specifications for the gyro under the name NXT Gyro Sensor (NGY1044).}
+		\label{table:Gyro_sensor}
+	\end{table}
+
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{NXT_Gyro_Sensor}
+		\caption{Shows the gyro sensor which was used in the project.}
+		\label{fig:NXT_Gyro_Sensor}
+	\end{figure}
+        
+        
+        \subsubsection{HighTechinic Accelerometer Sensor}
+        
+The accelerometer measure acceleration in x, y and z direction relative to the sensors specified directions given by the manufacturer. The specifications of the accelerometer can be seen in the table \ref{table:Acce_sensor} which shows the the time for it to give a sample to our program respectively number of times the sensor can update a value. On the other hand this sensor also comes with unwanted properties which is that the value is (very) noise however when it is not noise it gives reasonable good data. We can also see how this sensor looks like in the figure \ref{fig:NXT_Acce_Sensor}.
+         % THE TABLE DESCRIBING THE PROP. of the Acce sensor
+         \begin{table}[h]
+		\center
+		\begin{tabular}{|c |c|}
+			\hline
+			 Refresh time in program & 30- 60 ms   \\ 
+			\hline
+			Update of value &  100 times / second  \\ 
+			\hline
+		\end{tabular}
+		\caption{Specifications for the accelerometer under the name NXT Acceleration (NAC1040).}
+		\label{table:Acce_sensor}
+	\end{table}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{NXT_Gyro_Sensor}
+		\caption{Shows the accelerometer sensor which was used in the project.}
+		\label{fig:NXT_Acce_Sensor}
+	\end{figure}
+	
+         
+        
+        
+        \subsubsection{AbsoluteIMU-ACG}
+    \subsection{Reaction wheel}
+    \subsection{Motors}
+    \subsection{Prototypes}
+
+\section{Modeling}
+	\subsection{Lateral Balance}
+		\subsubsection{Mathematical model}
+        \subsubsection{Simulink model}
+    \subsection{Medial Balance}
+		\subsubsection{Mathematical model}
+        \subsubsection{Simulink model}
+        
+\section{Implementation}
+	\subsection{Programs}
+    	\subsubsection{Lejos}
+    	\subsubsection{NXC}
+    \subsection{Sensors}
+    
+\section{Results}
+
+\section{Discussion and Conclusion}
+
+\section{References}
+
+
+
+
+
+\end{document}
