@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.10)  6 JAN 2015 23:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.10)  7 JAN 2015 23:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -472,37 +472,58 @@ LaTeX Info: Redefining \addtolength on input line 76.
 )
 \c@@todonotes@numberoftodonotes=\count125
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/filecontents/filecontents.sty
+Package: filecontents 2011/10/08 v1.3 Create an external file from within a LaT
+eX document
+)
+
+LaTeX Warning: Overwriting file `./Final_report_tmp.bib'.
+
+\openout15 = `Final_report_tmp.bib'.
+
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip49
+\bibsep=\skip50
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count126
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 (./Final_report_tmp.aux)
 \openout1 = `Final_report_tmp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count126
+\scratchcounter=\count127
 \scratchdimen=\dimen163
 \scratchbox=\box39
-\nofMPsegments=\count127
-\nofMParguments=\count128
+\nofMPsegments=\count128
+\nofMParguments=\count129
 \everyMPshowfont=\toks39
-\MPscratchCnt=\count129
+\MPscratchCnt=\count130
 \MPscratchDim=\dimen164
-\MPnumerator=\count130
-\makeMPintoPDFobject=\count131
+\MPnumerator=\count131
+\makeMPintoPDFobject=\count132
 \everyMPtoPDFconversion=\toks40
 ) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -562,37 +583,120 @@ ABD: EveryShipout initializing macros (./Final_report_tmp.toc)
 <NXT_Gyro_Sensor.jpg, id=16, 212.795pt x 154.5775pt>
 File: NXT_Gyro_Sensor.jpg Graphic file (type jpg)
  <use NXT_Gyro_Sensor.jpg>
-Package pdftex.def Info: NXT_Gyro_Sensor.jpg used on input line 87.
+Package pdftex.def Info: NXT_Gyro_Sensor.jpg used on input line 109.
 (pdftex.def)             Requested size: 103.50105pt x 75.18462pt.
+
+<plot_gyro_test_final_20150107.jpg, id=17, 561.09625pt x 420.57124pt>
+File: plot_gyro_test_final_20150107.jpg Graphic file (type jpg)
+
+<use plot_gyro_test_final_20150107.jpg>
+Package pdftex.def Info: plot_gyro_test_final_20150107.jpg used on input line 1
+16.
+(pdftex.def)             Requested size: 448.50105pt x 336.1751pt.
+
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 116--117
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2 <./NXT_Gyro_Sensor.jpg>]
 File: NXT_Gyro_Sensor.jpg Graphic file (type jpg)
  <use NXT_Gyro_Sensor.jpg>
-Package pdftex.def Info: NXT_Gyro_Sensor.jpg used on input line 112.
+Package pdftex.def Info: NXT_Gyro_Sensor.jpg used on input line 143.
 (pdftex.def)             Requested size: 103.50105pt x 75.18462pt.
- [3] [4]
-(./Final_report_tmp.aux) ) 
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<plot_acce_refresh_time_20150107.jpg, id=22, 561.09625pt x 420.57124pt>
+File: plot_acce_refresh_time_20150107.jpg Graphic file (type jpg)
+
+<use plot_acce_refresh_time_20150107.jpg>
+Package pdftex.def Info: plot_acce_refresh_time_20150107.jpg used on input line
+ 150.
+(pdftex.def)             Requested size: 448.50105pt x 336.1751pt.
+
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 150--151
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3 <./plot_gyro_test_final_20150107.jpg>] [4 <./plot_acce_refresh_time_20150107
+.jpg>] <plot_data_UMI_sen_0_20150103.jpg, id=29, 561.09625pt x 420.57124pt>
+File: plot_data_UMI_sen_0_20150103.jpg Graphic file (type jpg)
+
+<use plot_data_UMI_sen_0_20150103.jpg>
+Package pdftex.def Info: plot_data_UMI_sen_0_20150103.jpg used on input line 16
+4.
+(pdftex.def)             Requested size: 448.50105pt x 336.1751pt.
+
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 164--165
+ [][] 
+ []
+
+<plot_data_UMI_sen_4_20150107.jpg, id=30, 561.09625pt x 420.57124pt>
+File: plot_data_UMI_sen_4_20150107.jpg Graphic file (type jpg)
+
+<use plot_data_UMI_sen_4_20150107.jpg>
+Package pdftex.def Info: plot_data_UMI_sen_4_20150107.jpg used on input line 17
+1.
+(pdftex.def)             Requested size: 448.50105pt x 336.1751pt.
+
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 171--172
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5 <./plot_data_UMI_sen_0_20150103.jpg>] [6 <./plot_data_UMI_sen_4_20150107.jpg
+>]
+
+Package natbib Warning: Citation `kinaSUR' on page 7 undefined on input line 20
+2.
+
+<plot_torque_versus_power_20151207.jpg, id=37, 560.0925pt x 420.57124pt>
+File: plot_torque_versus_power_20151207.jpg Graphic file (type jpg)
+
+<use plot_torque_versus_power_20151207.jpg>
+Package pdftex.def Info: plot_torque_versus_power_20151207.jpg used on input li
+ne 206.
+(pdftex.def)             Requested size: 448.50105pt x 336.79115pt.
+
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 206--207
+ [][] 
+ []
+
+No file Final_report_tmp.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+[7 <./plot_torque_versus_power_20151207.jpg>] [8] (./Final_report_tmp.aux) ) 
 Here is how much of TeX's memory you used:
- 13071 strings out of 493117
- 258086 string characters out of 6135433
- 313620 words of memory out of 5000000
- 16260 multiletter control sequences out of 15000+600000
+ 13510 strings out of 493117
+ 264278 string characters out of 6135433
+ 320689 words of memory out of 5000000
+ 16681 multiletter control sequences out of 15000+600000
  9630 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,56p,642b,289s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmbx9.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr17.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr9.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb>
-Output written on Final_report_tmp.pdf (4 pages, 131031 bytes).
+ 62i,9n,56p,885b,313s stack positions out of 5000i,500n,10000p,200000b,80000s
+</u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr
+/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/l
+ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Final_report_tmp.pdf (8 pages, 283767 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 72 PDF objects out of 1000 (max. 8388607)
+ 47 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
