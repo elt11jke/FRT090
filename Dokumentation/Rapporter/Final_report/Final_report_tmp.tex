@@ -34,26 +34,10 @@
 %_____________________________________________________________________________________
 
 % NEEDED FOR THE REFERENCE
- %_______SOURCE; http://tex.stackexchange.com/questions/161762/misc-bibtex-entry-is-not-citing-correctly
+ %_______SOURCE; 
 
 % START
-
-\RequirePackage{filecontents}
-
-\begin{filecontents}{\jobname.bib}
-@misc{kinaSUR,
-    author = "{Ministry for Primary Industries}",
-    title = {{Kina sea urchin regions in NZ}},
-    howpublished = {\url{http://fs.fish.govt.nz/Page.aspx?pk=7&sc=SUR}},
-    note = {Online; accessed 29 January 2014} ,
-    year=2013,
-}
-\end{filecontents}
-
-\usepackage{natbib}
-\usepackage{url}
-
-
+\usepackage{hyperref}
 % END
 
 
@@ -94,9 +78,9 @@ Your introduction goes here! Some examples of commonly used commands and feature
 			\hline
 			 Refresh time in program & 10 ms (average)   \\ 
 			\hline
-			Accuracy &  $\pm 1$ degree  \\ 
+			Accuracy &  $\pm 1$ degree \cite{NXT_Gyro_Sensor} \\ 
 			\hline
-			Update of value & 300 times / second \\
+			Update of value & 300 times / second  \cite{NXT_Gyro_Sensor} \\
 	        		\hline
 		\end{tabular}
 		\caption{Specifications for the gyro under the name NXT Gyro Sensor (NGY1044).}
@@ -131,7 +115,7 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 			\hline
 			 Refresh time in program & 20 ms (average)   \\ 
 			\hline
-			Update of value &  100 times / second  \\ 
+			Update of value &  100 times / second \cite{NXT_Acce} \\ 
 			\hline
 		\end{tabular}
 		\caption{Specifications for the accelerometer under the name NXT Acceleration (NAC1040).}
@@ -180,7 +164,7 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 			\hline
 			 Refresh time in program &  83 ms (average)   \\ 
 			\hline
-			Update of value &  100 times / second  \\ 
+			Update of value &  100 times / second  \cite{IMU_sensor} \\ 
 			\hline
 		\end{tabular}
 		\caption{Specifications for the IMU-ACG sensor.}
@@ -212,11 +196,11 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 		\center
 		\begin{tabular}{|c |c|}
 			\hline
-			 RPM &  160 - 170  \\ 
+			 RPM &  160 - 170  \cite{Ev3_Large_Servo_Motor}  \\ 
 			\hline
-			Running torque &  20 N/cm  \\ 
+			Running torque &  20 N/cm \cite{Ev3_Large_Servo_Motor}  \\ 
 			\hline
-			Stall torque  &  40 N/cm   \\
+			Stall torque  &  40 N/cm  \cite{Ev3_Large_Servo_Motor}  \\
 			\hline
 		\end{tabular}
 		\caption{Specifications for the EV3 large motor server.}
@@ -246,15 +230,13 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 
 \section{Discussion and Conclusion}
 
-\section{References}
-
 
 
 
 % NEDED FOR THE REFERENCE, PART 2
-% SOURCE;    http://tex.stackexchange.com/questions/161762/misc-bibtex-entry-is-not-citing-correctly
+% SOURCE;    
 % START
-\bibliographystyle{otago} 
-\bibliography{\jobname}
+\bibliographystyle{plain}
+\bibliography{ref_bib}	% där "ref_bib" är "ref_bib.bib" filen i samma mapp där alla referenser defineras 
 % END
 \end{document}
