@@ -4,49 +4,50 @@ The top-level auxiliary file: Final_report_tmp.aux
 The style file: plain.bst
 Database file #1: ref_bib.bib
 Warning--I didn't find a database entry for "kinaSUR"
+Warning--to sort, need author or key in EV3spec
 Warning--to sort, need author or key in NXT_Gyro_Sensor
 Warning--to sort, need author or key in NXT_Acce
 Warning--to sort, need author or key in IMU_sensor
 Warning--to sort, need author or key in Ev3_Large_Servo_Motor
-You've used 4 entries,
+You've used 5 entries,
             2118 wiz_defined-function locations,
-            515 strings with 4528 characters,
-and the built_in function-call counts, 656 in all, are:
-= -- 60
-> -- 4
+            519 strings with 4644 characters,
+and the built_in function-call counts, 815 in all, are:
+= -- 75
+> -- 5
 < -- 0
-+ -- 4
++ -- 5
 - -- 0
-* -- 22
-:= -- 77
-add.period$ -- 8
-call.type$ -- 4
-change.case$ -- 12
+* -- 27
+:= -- 94
+add.period$ -- 10
+call.type$ -- 5
+change.case$ -- 15
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 28
-empty$ -- 93
+cite$ -- 10
+duplicate$ -- 35
+empty$ -- 116
 format.name$ -- 0
-if$ -- 161
+if$ -- 201
 int.to.chr$ -- 0
-int.to.str$ -- 4
+int.to.str$ -- 5
 missing$ -- 0
-newline$ -- 19
+newline$ -- 23
 num.names$ -- 0
-pop$ -- 32
+pop$ -- 40
 preamble$ -- 1
-purify$ -- 8
+purify$ -- 10
 quote$ -- 0
-skip$ -- 32
+skip$ -- 40
 stack$ -- 0
-substring$ -- 20
-swap$ -- 4
+substring$ -- 25
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
-warning$ -- 4
+type$ -- 20
+warning$ -- 5
 while$ -- 0
-width$ -- 5
-write$ -- 30
-(There were 5 warnings)
+width$ -- 6
+write$ -- 37
+(There were 6 warnings)

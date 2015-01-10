@@ -65,6 +65,56 @@ Your introduction goes here! Some examples of commonly used commands and feature
 \section{Construction}
 
 	\subsection{Ev3}
+	The EV3 is the third generation of Lego Mindstorms platforms, the specification of this platform can be seen in the table \ref{table:spec_ev3}. Furthermore some options for programming platforms are listed in the table \ref{table:prog_platforms_ev3}. Lastly can a picture of the EV3 also be seen in figure \ref{fig:ev3_platform_picture}
+	
+	 \begin{table}[h]
+		\center
+		\begin{tabular}{|c |c|}
+			\hline
+			 Processor &  ARM9   \\ 
+			\hline
+			OS   & Linux- based  \\ 
+			\hline
+			Sensor ports & 4 , analog, digital (up to 460.8 Kbit/sec)  \\
+	        		\hline
+			Motor port & 4, with encoders \\
+			\hline
+			SD- card & Micro SD- Card Reader, (up to 32 GB)   \\
+			\hline
+		\end{tabular}
+		\caption{Specifications for the EV3 platform found at \cite{EV3spec}.}
+		\label{table:spec_ev3}
+	\end{table}
+	
+	 \begin{table}[h]
+		\center
+		\begin{tabular}{|c|}
+			\hline
+			Programing platforms   \\ 
+			\hline
+			Lejos (extension of JAVA)  \\ 
+			\hline
+			RobotC (similar to C) \\
+	        		\hline
+			NCX (similar to C )\\
+			\hline
+		\end{tabular}
+		\caption{Some of the optional programing platforms for the EV3.}
+		\label{table:prog_platforms_ev3}
+	\end{table}
+	
+	
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.2\textwidth,height=0.2\textheight]{ev3_platform}
+		\caption{Shows how the hardware platform EV3 looks like which was used in the project.}
+		\label{fig:ev3_platform_picture}
+	\end{figure}
+	
+	
+	
+	
     \subsection{Sensors}
     	\subsubsection{HighTechinic Gyro Sensor}
         The Gyro sensor gives the rate of change in x, y and z orientation in radians per second. More specified details about the sensor can be seen in the table \ref{table:Gyro_sensor}. The first row shows how long time it takes for our program to fetch a sample, second row shows how accurate the sensor is given by specification by the manufacturer and the last line shows the update time of the sensor also given by the manufacturer. 
@@ -182,8 +232,7 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
     \newpage
     \subsection{Motors}
     	\subsubsection{EV3 Large Servo Motor}
-	This is one of the strongest motors there is for LEGO and the specifications for this motor can be seen in the table \ref{table:EV3_Large_servo_motor}. One experiment was done to get the connection between the torque and the power which is the parameter that control the PWM that goes to the motor. The power goes from -100 to 100. The result can be seen in the figure \ref{fig:plot_power_torque}.
-	\cite{kinaSUR}
+	This is one of the strongest motors there is for LEGO and the specifications for this motor can be seen in the table 	  \ref{table:EV3_Large_servo_motor}. One experiment was done to get the connection between the torque and the power which is the parameter that control the PWM that goes to the motor. The power goes from -100 to 100. The result can be seen in the figure \ref{fig:plot_power_torque}.
     
        \begin{figure}[h]
 		\centering

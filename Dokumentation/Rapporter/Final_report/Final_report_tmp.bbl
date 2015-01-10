@@ -10,6 +10,11 @@ Ev3 large servo motor.
 \newblock
   \url{http://shop.lego.com/en-US/EV3-Large-Servo-Motor-45502?fromListing=listing}.
 
+\bibitem{EV3spec}
+Ev3 platform specifications.
+\newblock
+  \url{http://botbench.com/blog/2013/01/08/comparing-the-nxt-and-ev3-bricks/}.
+
 \bibitem{NXT_Acce}
 Nxt acce.
 \newblock
