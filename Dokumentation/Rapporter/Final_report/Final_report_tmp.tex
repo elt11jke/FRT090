@@ -226,12 +226,57 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
     \newpage 
     \subsection{Reaction wheel}
     
+    The reaction wheel modeling is explained in the section \ref{sec:Modeling} and some conclusion can be drawn from that. In this section we will bring up what those conclusion became in reality. Because we want as much weight as possible in the outer ring so nuts screwed in the material was the obvious choice. The choice of material was between plastic and wood, because of the nature of time and availability of personal it became wood. Plastic was preferable wood would also make it work. Due to the heavier weight of wood due to its nature it became a problem but was solved with making circles in the circle of wood so the most of the weight was taken out but leave enough for the circle not to crack under pressure of acceleration. The end product of the reaction wheel can be seen in the figure \ref{fig:reaction_wheel_end_product} while the dimensions is shown in the table \ref{table:spec_reaction_wheel}. Meanwhile the design of the initial reaction wheel be seen in the figure \ref{fig:reaction_wheel_initial_design}. Thirdly is wort mentioning that the wholes at the end of the circle in figure \ref{fig:reaction_wheel_initial_design} is for the nuts to go in and the cross in the middle is for the attachment to the axis going to the EV3 Large Servo Motor. More on this topic under the section \ref{sec:Attachment_reaction_wheel_EV3_Motor}
+    
+    
+       \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth,height=0.5\textwidth]{reaction_wheel_initial_design}
+		\caption{Shows the initial design for the reaction wheel.}
+		\label{fig:reaction_wheel_initial_design}
+	\end{figure}
+	
+	
+	         \begin{table}[h]
+		\center
+		\begin{tabular}{|c |c|}
+			\hline
+			Diameter & 30 cm    \\ 
+			\hline
+			Thickness & 8 mm  \\ 
+			\hline
+		\end{tabular}
+		\caption{Shows the dimensions of the end product of the reaction wheel.}
+		\label{table:spec_reaction_wheel}
+	\end{table}
+	
+      \begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth,height=0.7\textwidth]{reaction_wheel_endproduct_picture}
+		\caption{Shows the end product of the reaction wheel with the whole prototype at one stage.}
+		\label{fig:reaction_wheel_end_product}
+	\end{figure}
+    
+    
+    
+    
+    
+    
+    
+    
+    \newpage
+ \subsubsection{Attachment between the reaction wheel and EV3 Large Motor } 
+ \label{sec:Attachment_reaction_wheel_EV3_Motor}
+ 
+ 
+  
     
     
     
     \newpage
     \subsection{Motors}
     	\subsubsection{EV3 Large Servo Motor}
+	\label{sec:EV3 Large Servo Motor}
 	This is one of the strongest motors there is for LEGO and the specifications for this motor can be seen in the table 	  \ref{table:EV3_Large_servo_motor}. One experiment was done to get the connection between the torque and the power which is the parameter that control the PWM that goes to the motor. The power goes from -100 to 100. The result can be seen in the figure \ref{fig:plot_power_torque}.
     
        \begin{figure}[h]
@@ -262,6 +307,7 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
     \subsection{Prototypes}
 
 \section{Modeling}
+\label{sec:Modeling}
 	\subsection{Lateral Balance}
 		\subsubsection{Mathematical model}
         \subsubsection{Simulink model}
