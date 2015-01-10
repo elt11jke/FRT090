@@ -5,6 +5,9 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage{subfig}
+\usepackage{float}
+
 
 %_____________________________________________________________________________________
 % THIS SOME THING THAT WILL GET OUR FIGURES IN THE RIGHT PLACE TAKEN FROM THE INTERNET ON THE WEBPAGE; http://mintaka.sdsu.edu/GF/bibliog/latex/floats.html
@@ -39,6 +42,34 @@
 % START
 \usepackage{hyperref}
 % END
+
+
+% NEEDED FOR SOURCE CODE (JAVA) TO FUNCTION NICELY
+% SOURCE; http://stackoverflow.com/questions/3175105/how-to-insert-code-into-a-latex-doc
+%START
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%END
 
 
 
@@ -237,7 +268,7 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 	\end{figure}
 	
 	
-	         \begin{table}[h]
+	\begin{table}[h]
 		\center
 		\begin{tabular}{|c |c|}
 			\hline
@@ -287,18 +318,13 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 	\end{figure}
 	
  
- 
- 
-  
-    
-    
-    
     \newpage
     \subsection{Motors}
     	\subsubsection{EV3 Large Servo Motor}
 	\label{sec:EV3 Large Servo Motor}
 	This is one of the strongest motors there is for LEGO and the specifications for this motor can be seen in the table 	  \ref{table:EV3_Large_servo_motor}. One experiment was done to get the connection between the torque and the power which is the parameter that control the PWM that goes to the motor. The power goes from -100 to 100. The result can be seen in the figure \ref{fig:plot_power_torque}.
     
+ 
        \begin{figure}[h]
 		\centering
 		\includegraphics[width=1.3\textwidth]{plot_torque_versus_power_20151207}
@@ -323,12 +349,96 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 	
 	
     
-    
+    \newpage
     \subsection{Prototypes}
     \label{sec:Prototypes}
-    
-    
+In this section we will bring up the limitations of the physical construction of the lego segway and bring up some key limitations of the model as well. \\The most critical limitations is the building blocks of Lego because of some key concepts. The first being that the attachment pieces which holds the lego blocks together are not the most stable one which means that is you put two blocks together you can not expect that the blocks are held together while have some stress on them. They will fold not all the way by enough for the prototype to experience wobbles when the reaction wheel starts to accelerate and move around. This problem was experienced with great signification in the three first prototypes but the last one held it out pretty well considering that the system was made in lego. 
 
+The second limitation is availability of the connection points on the EV3, there are some but could be more of them. From a building perspective this set great boundaries on how you might build your prototype hence the four prototypes. Each of them had strengths and weaknesses which is brought up in the table \ref{table:prototype_properties}. The possible options that the different categories can be are shown in the table \ref{table:def_prototypes}, these options are taken up to give a hint of how the different prototypes act when used and are therefore not scientific in a since that you can measure them. 
+
+ 
+    
+    
+ 
+    \begin{figure}[h]
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_a}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_b}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_c}}  \\
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_d}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_e}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.2\textheight]{prototype_1_f}}
+	\caption{Shows the first prototype from different angles.}
+    \end{figure}
+    
+    \begin{table}[h]
+		\begin{tabular}{|c |c| |c|  |c|  |c|  }
+			\hline
+			Categories & p1 & p2 & p3 & p4	\\
+			\hline
+			 Handle stress due to reaction wheel  & - & falling apart & bad &  good \\ 
+			\hline
+			Stationary movement &  - &  forward & weak forward & stationary \\ 
+			\hline
+			Gravidation centre  &  middle  & high & high & low \\
+			\hline
+			Reaction wheel torn out  & - & yes & yes & no \\
+			\hline
+		\end{tabular}
+		\caption{The prototype properties for different categories, where pN is as follows; the p for prototype and the N for which one (e.g. p1 stands for prototype 1)."-" means that is was never tested.}
+		\label{table:prototype_properties}
+	\end{table}
+	
+	
+	\begin{table}[h]
+		\begin{tabular}{|c |c|   }
+			\hline
+			Categories & The possible options	\\
+			\hline
+			 Handle stress due to reaction wheel  & falling apart-bad-magageable-good \\ 
+			\hline
+			Stationary movement &  falling forward-falling backward-stationary\\ 
+			\hline
+			Gravidation centre  & low-middle-high \\
+			\hline
+			Reaction wheel torn out  & yes-no \\
+			\hline
+		\end{tabular}
+		\caption{The different options that the categories can take in the table \ref{table:prototype_properties}.}
+		\label{table:def_prototypes}
+	\end{table}
+
+    
+    
+    
+    \begin{figure}[h]
+	\subfloat[]{\includegraphics[width=0.35\textwidth,height=0.25\textheight]{prototype_2_a}} 
+	\subfloat[]{\includegraphics[width=0.35\textwidth,height=0.25\textheight]{prototype_2_b}} 
+	\subfloat[]{\includegraphics[width=0.35\textwidth,height=0.25\textheight]{prototype_2_c}}  
+	\caption{Shows the second prototype from different angles with the first prototype of the reaction wheel.}
+    \end{figure}
+    
+        \begin{figure}[h]
+        \center
+	 \includegraphics[width=0.5\textwidth,height=0.5\textheight]{prototype_3_a}
+	\caption{Shows the third prototype with the first prototype of the reaction wheel.}
+    \end{figure}
+    
+      \begin{figure}[h]
+      	\center
+	\subfloat[]{\includegraphics[width=0.35\textwidth,height=0.30\textheight]{prototype_4_a}} 
+	\subfloat[]{\includegraphics[width=0.35\textwidth,height=0.30\textheight]{prototype_4_b}} 
+	\caption{Shows the fourth prototype from different angles with the first prototype of the reaction wheel.}
+    \end{figure}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+\newpage
 \section{Modeling}
 \label{sec:Modeling}
 	\subsection{Lateral Balance}
@@ -341,6 +451,8 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 \section{Implementation}
 	\subsection{Programs}
     	\subsubsection{Lejos}
+	
+	
     	\subsubsection{NXC}
     \subsection{Sensors}
     
@@ -349,6 +461,13 @@ The accelerometer measure acceleration in x, y and z direction relative to the s
 \section{Discussion and Conclusion}
 
 
+
+\appendix
+
+\section{Lejos Source Code}
+\subsection{The main source code}
+
+\subsection{The sensor source test codes}
 
 
 % NEDED FOR THE REFERENCE, PART 2
