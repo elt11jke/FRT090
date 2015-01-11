@@ -1,30 +1,31 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Author's note}{3}{section.1}
-\contentsline {section}{\numberline {2}Introduction}{3}{section.2}
-\contentsline {section}{\numberline {3}Construction}{3}{section.3}
-\contentsline {subsection}{\numberline {3.1}Ev3}{3}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Sensors}{3}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}HighTechinic Gyro Sensor}{3}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}HighTechinic Accelerometer Sensor}{5}{subsubsection.3.2.2}
+\contentsline {section}{\numberline {1}Author's note}{2}{section.1}
+\contentsline {section}{\numberline {2}Introduction}{2}{section.2}
+\contentsline {section}{\numberline {3}Construction}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Ev3}{2}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Sensors}{2}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}HighTechinic Gyro Sensor}{2}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}HighTechinic Accelerometer Sensor}{4}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}AbsoluteIMU-ACG}{5}{subsubsection.3.2.3}
 \contentsline {subsection}{\numberline {3.3}Reaction wheel}{7}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Attachment between the reaction wheel and EV3 Large Motor }{9}{subsubsection.3.3.1}
-\contentsline {subsection}{\numberline {3.4}Motors}{10}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}EV3 Large Servo Motor}{10}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.3.1}Attachment between the reaction wheel and EV3 Large Motor }{8}{subsubsection.3.3.1}
+\contentsline {subsection}{\numberline {3.4}Motors}{9}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}EV3 Large Servo Motor}{9}{subsubsection.3.4.1}
 \contentsline {subsection}{\numberline {3.5}Prototypes}{11}{subsection.3.5}
-\contentsline {section}{\numberline {4}Modeling}{16}{section.4}
-\contentsline {subsection}{\numberline {4.1}Lateral Balance}{16}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Medial Balance}{18}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Mathematical model}{18}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Simulink model}{18}{subsubsection.4.2.2}
-\contentsline {section}{\numberline {5}Implementation}{18}{section.5}
-\contentsline {subsection}{\numberline {5.1}Parameters}{18}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Programs}{18}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Lejos}{19}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}NXC}{19}{subsubsection.5.2.2}
-\contentsline {subsection}{\numberline {5.3}Sensors}{19}{subsection.5.3}
-\contentsline {section}{\numberline {6}Results}{19}{section.6}
-\contentsline {section}{\numberline {7}Discussion and Conclusion}{19}{section.7}
-\contentsline {section}{\numberline {A}Lejos Source Code}{19}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}The main source code}{19}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}The sensor source test codes}{19}{subsection.A.2}
+\contentsline {section}{\numberline {4}Modeling}{13}{section.4}
+\contentsline {subsection}{\numberline {4.1}Lateral Balance}{13}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Mathematical model}{13}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Simulink model}{13}{subsubsection.4.1.2}
+\contentsline {subsection}{\numberline {4.2}Medial Balance}{13}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Mathematical model}{13}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Simulink model}{13}{subsubsection.4.2.2}
+\contentsline {section}{\numberline {5}Implementation}{13}{section.5}
+\contentsline {subsection}{\numberline {5.1}Programs}{13}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Lejos}{15}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}NXC}{15}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Sensors}{15}{subsection.5.2}
+\contentsline {section}{\numberline {6}Results}{15}{section.6}
+\contentsline {section}{\numberline {7}Discussion and Conclusion}{15}{section.7}
+\contentsline {section}{\numberline {A}Lejos Source Code}{15}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}The main source code}{15}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}The sensor source test codes}{15}{subsection.A.2}
