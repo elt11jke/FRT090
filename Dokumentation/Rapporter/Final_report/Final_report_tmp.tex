@@ -91,7 +91,7 @@ Your abstract.
 
 \section{Introduction}
 
-Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started. If you have a question, please use the help menu (``?'') on the top bar to search for help or ask us a question.
+We are designing a unicycle made by lego with an integrated inertia wheel to keep the lateral balence. The project therefore consists of two problems. To stabilize the unicycle in the medial direction by designing a controller for the ground wheel, and to stabilize it in the lateral direction by applying a reaction wheel connected to the top of the unicycle.
 
 \section{Construction}
 
@@ -439,16 +439,100 @@ The second limitation is availability of the connection points on the EV3, there
     
     
 \newpage
+
+\clearpage
+
 \section{Modeling}
 \label{sec:Modeling}
 	\subsection{Lateral Balance}
-		\subsubsection{Mathematical model}
-        \subsubsection{Simulink model}
+	
+	We realized early in the project that controlling the inertia wheel is the most complicated part of the project. The complexity comes from several areas. The sensors have to be very accurate (which they are not), the simulation in simulink had to take account of the relationship between torque and the speed of the wheel among other things, we had to design a working controller.
+
+The unicycle is similar to an inverted pendulum with a point mass in the center of mass, with an additional mass that is the inertia wheel, seen in figure 17. We modelled the pendulum as can be seen in (1). The relevant states from the model are the angle of the pendulum, the the angular velocity of the pendulum and the angular velocity of the inertia wheel. The angular position of the inertia wheel is not important as only the change in angular position affects the torque. Torque is the momentum you get when a vector force is acted on the wheel with a certain radius. The torque acting on the pendulum due to gravity (which makes it fall) must be less that the torque from the inertia wheel (which we can control) for it to be stable. The reaction torque is therefore dependent on the radius of the wheel. The maximum torque of the engine is also limited, so some angles are impossible for the reaction wheel to stabilize.
+
+To optimize the controller we implemented a linear quadratic regulator which minimizes the cost function, seen in (2). The Q matrix determines how much each state will be penalized. Since we want to keep cost function (J) small a large Q will require that the states are small. Q=[q1 0 0; 0 q2 0; 0 0 q3].
+
+\begin{figure} [h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Inverted_pedulum_2}
+	\caption{Shows the sketch of the inverted pendulum}
+	\label{fig:sketch_inverted_pendulum}
+\end{figure}
+
+\newpage	
+	
+		\subsubsection*{Mathematical model}
+		
+The principle idea of this control problem is to receive a reaction torque from 			the inertia wheel that is larger than the torque exerted on the unicycle from 				gravity. Looking at figure 17 we see the forces acting on the unicycle as it 				falls. If we assume that all the mass of the body exists in one point, the 					center of mass, the model of the process can be calculated using Newtons laws. The use of Newtons laws was chosen instead of the Lagrangian equations because it would give an adequately accurate model while still being easier to determine. 
+
+The angular acceleration of the body will equal the net torque acted 			on the center of mass and the center of the inertia wheel due to gravity, and the reaction torque opposing the other two. The reaction torque is caused by the angular acceleration of the inertia wheel. Controlling the reaction torque in such a way that will keep 	$ \frac{\partial^2 \theta_{b} }{\partial t^2}  = 0 $ and $\theta_{b}=0$ will make the system stable. It was estimated that the friction from the EV3 motor would we small and it was neglected from the equations.
+
+		
+		\begin{equation}
+		\begin{aligned}
+	     	 (J_{w}+ML^2 + J_{b} ) \frac{\partial^2 \theta_{b} }{\partial t^2}  &= l_{1} \sin{\theta_{b}} m g + L \sin{\theta_{b}} M g - \tau    \\  
+		 J_{w} \frac{\partial^2 \theta_{w}} {\partial t^2} &= \tau
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+				
+Where $\theta_{b}$ is the angle of the body, $\theta_{w}$ is the angle of the inertia wheel, $J_(b)$ and $J_(w)$ is the moment of inertia of the body and the wheel, $m$ is the mass of the body without the wheel, $M$ is the mass of the wheel, $g$ is the gravitational constant, $l_{1}$ is the length from the pivot point to the center of mass, $L$ is the length of the pivot point to the center of the wheel and $\tau$ is the reaction torque.
+
+As stated before the interesting states are the angle of the body, the angular speed of the body and the angular speed of the wheel. The model in (1) can be linearised around the origin where $\theta_{b}=0$. When the angle of the body is close to zero $sin(\theta_{b})\approx\theta_{b}$. Since the angle of the body will mainly be close to zero with the right controller the approximation will serve for the model. The new model and state space representation linearised around the origin will be:
+
+		\begin{equation}
+		\begin{aligned}
+	     	 (J_{w}+ML^2 + J_{b} ) \frac{\partial^2 \theta_{b} }{\partial t^2}  &= l_{1} \theta_{b} m g + L \theta_{b} M g - \tau    \\  
+		 J_{w} \frac{\partial^2 \theta_{w}} {\partial t^2} &= \tau
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+$x_{1}$: Angle of the body \\
+$x_{2}$: Angular velocity of the body\\
+$x_{2}$: Angular velocity of the inertia wheel\\
+
+		\begin{equation}
+		\begin{aligned}
+		\dot{x_{1}} = x_{2}\\
+		\dot{x_{2}} = \frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM)x_{1} - \frac {1}{(J_{w}+ML^2 + J_{b} )} \tau \\
+		\dot{x_{1}} = \frac {1}{J_{w}} \tau\\
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+
+
+
+$A =  \begin{bmatrix} 
+0 & 1 & 0 \\
+\frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM) & 0& 0 \\
+0 & 0 & 0 
+ \end{bmatrix}$
+ 
+ $B =  \begin{bmatrix} 
+0 \\
+-\frac {1}{J_{w}} \\
+\frac {1}{J_{w}}
+ \end{bmatrix}$
+ 
+  $C =  \begin{bmatrix} 
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+ \end{bmatrix}$
+ 
+ $D=0$
+		
+        \subsubsection*{Simulink model}
     \subsection{Medial Balance}
 		\subsubsection{Mathematical model}
         \subsubsection{Simulink model}
         
 \section{Implementation}
+	
+	\subsection{Parameters}
+
 	\subsection{Programs}
 	% PROGRAMS SECTION
 	In this section we will consider looking at the different programs and why the specific formats and programs where chosen as can bee seen in table \ref{table:Programs_used}. The OS (operating system) windows 7 was chosen due to the easiest setup guides on the internet for Lejos (the main programing language ). Lejos for main programing language was mainly used due to the familiarity of java, Lejos is a extension of java. It also has a class for every unit which was used in the project in other words made it easy to work with. Lejos had also support for parallel threads which other programs had diffucuilities    
