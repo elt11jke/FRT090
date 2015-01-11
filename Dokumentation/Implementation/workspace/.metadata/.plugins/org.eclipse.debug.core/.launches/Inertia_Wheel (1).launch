@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.lejos.ev3.ldt.LaunchType">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/Inertia_Project/src/Inertia_Wheel.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Inertia_Wheel"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Inertia_Project"/>
+</launchConfiguration>

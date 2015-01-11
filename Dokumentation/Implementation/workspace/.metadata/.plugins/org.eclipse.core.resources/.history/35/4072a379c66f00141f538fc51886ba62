@@ -1,0 +1,85 @@
+import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+//import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+
+
+
+public class Gyroscope {
+	
+	  static int UpdatePeriod = 10;
+	  static  int angle=0;
+	  static int angleOffset=0;
+	  static HiTechnicGyro gyro;
+	
+
+	public static void main(String[] args) throws InterruptedException {
+		
+	
+		   LCD.drawString("Gyroscope_Program_Test", 0, 0);
+		
+		   Button.waitForAnyPress();
+		
+	       DataLogger dl = new DataLogger("Sample.txt");
+	 
+	        gyro = new HiTechnicGyro(SensorPort.S2 );
+	       
+	       float[] sample = new float[1];
+	       
+	       int count=0;
+	       
+	       //calibrate();
+	       
+	       //gyro.fetchSample(sample, count);
+	       
+	       
+	       
+	       //angle=angle-angleOffset;
+	       
+	      
+
+	       while (! Button.ESCAPE.isDown())
+	       {		   
+	           
+	    	   gyro.fetchSample(sample, count);
+	    	   
+	    	   angle += sample[count] * UpdatePeriod;
+	    	   
+	    	   
+	    	   
+	    	   LCD.drawString("TestGyro", 3, 3);
+	    	   LCD.drawString("Angle:", 0, 5);
+	    	   LCD.drawString(""+sample[count], 10, 5);
+	    	   
+	           dl.writeSample(sample[count]);
+               count++;
+	           Thread.sleep(5);
+	       
+	       }
+	       dl.close();
+	       LCD.clear();
+	       LCD.drawString("Program stopped", 0, 0);
+	       Thread.sleep(2000);
+		
+		
+	}
+	 public static int calibrate(){
+		 
+		 float[] sampleCal = new float[1];
+		 
+		 for(int i=1; i<100; i++){
+		 
+			 gyro.fetchSample(sampleCal, i);
+		     angleOffset+=angleOffset;
+	 }
+		 
+		 angleOffset= angleOffset/100;
+		 
+		 return angleOffset;
+	 }
+}
