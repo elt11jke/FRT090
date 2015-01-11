@@ -478,7 +478,7 @@ The angular acceleration of the body will equal the net torque acted 			on the c
 				
 Where $\theta_{b}$ is the angle of the body, $\theta_{w}$ is the angle of the inertia wheel, $J_(b)$ and $J_(w)$ is the moment of inertia of the body and the wheel, $m$ is the mass of the body without the wheel, $M$ is the mass of the wheel, $g$ is the gravitational constant, $l_{1}$ is the length from the pivot point to the center of mass, $L$ is the length of the pivot point to the center of the wheel and $\tau$ is the reaction torque.
 
-As stated before the interesting states are the angle of the body, the angular speed of the body and the angular speed of the wheel. The model in (1) can be linearised around the origin where $\theta_{b}=0$. When the angle of the body is close to zero $sin(\theta_{b})\approx\theta_{b}$. Since the angle of the body will mainly be close to zero with the right controller the approximation will serve for the model. The new model and state space representation linearised around the origin will be:
+As stated before the interesting states are the angle of the body, the angular speed of the body and the angular speed of the wheel. The model in (1) can be linearised around the origin where $\theta_{b}=0$. When the angle of the body is close to zero $sin(\theta_{b})\approx\theta_{b}$. Since the angle of the body will mainly be close to zero with the right controller the approximation will serve for the model. The new model linearised around the origin will be:
 
 		\begin{equation}
 		\begin{aligned}
@@ -488,41 +488,8 @@ As stated before the interesting states are the angle of the body, the angular s
 	 	\label{equ:inverted_pendulum}  
 \end{equation}
 
-$x_{1}$: Angle of the body \\
-$x_{2}$: Angular velocity of the body\\
-$x_{2}$: Angular velocity of the inertia wheel\\
+The state space representation
 
-		\begin{equation}
-		\begin{aligned}
-		\dot{x_{1}} = x_{2}\\
-		\dot{x_{2}} = \frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM)x_{1} - \frac {1}{(J_{w}+ML^2 + J_{b} )} \tau \\
-		\dot{x_{1}} = \frac {1}{J_{w}} \tau\\
-		\end{aligned}
-	 	\label{equ:inverted_pendulum}  
-\end{equation}
-
-
-
-
-$A =  \begin{bmatrix} 
-0 & 1 & 0 \\
-\frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM) & 0& 0 \\
-0 & 0 & 0 
- \end{bmatrix}$
- 
- $B =  \begin{bmatrix} 
-0 \\
--\frac {1}{J_{w}} \\
-\frac {1}{J_{w}}
- \end{bmatrix}$
- 
-  $C =  \begin{bmatrix} 
-1 & 0 & 0\\
-0 & 1 & 0\\
-0 & 0 & 1\\
- \end{bmatrix}$
- 
- $D=0$
 		
         \subsubsection*{Simulink model}
     \subsection{Medial Balance}
