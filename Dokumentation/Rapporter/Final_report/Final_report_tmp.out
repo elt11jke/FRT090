@@ -1,0 +1,29 @@
+\BOOKMARK [1][-]{section.1}{Author's note}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.3}{Construction}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Ev3}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Sensors}{section.3}% 5
+\BOOKMARK [3][-]{subsubsection.3.2.1}{HighTechinic Gyro Sensor}{subsection.3.2}% 6
+\BOOKMARK [3][-]{subsubsection.3.2.2}{HighTechinic Accelerometer Sensor}{subsection.3.2}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.3}{AbsoluteIMU-ACG}{subsection.3.2}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Reaction wheel}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Attachment between the reaction wheel and EV3 Large Motor }{subsection.3.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Motors}{section.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.4.1}{EV3 Large Servo Motor}{subsection.3.4}% 12
+\BOOKMARK [2][-]{subsection.3.5}{Prototypes}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Modeling}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Lateral Balance}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Medial Balance}{section.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Mathematical model}{subsection.4.2}% 17
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Simulink model}{subsection.4.2}% 18
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 19
+\BOOKMARK [2][-]{subsection.5.1}{Parameters}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.2}{Programs}{section.5}% 21
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Lejos}{subsection.5.2}% 22
+\BOOKMARK [3][-]{subsubsection.5.2.2}{NXC}{subsection.5.2}% 23
+\BOOKMARK [2][-]{subsection.5.3}{Sensors}{section.5}% 24
+\BOOKMARK [1][-]{section.6}{Results}{}% 25
+\BOOKMARK [1][-]{section.7}{Discussion and Conclusion}{}% 26
+\BOOKMARK [1][-]{appendix.A}{Lejos Source Code}{}% 27
+\BOOKMARK [2][-]{subsection.A.1}{The main source code}{appendix.A}% 28
+\BOOKMARK [2][-]{subsection.A.2}{The sensor source test codes}{appendix.A}% 29
