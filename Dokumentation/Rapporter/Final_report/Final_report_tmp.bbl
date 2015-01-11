@@ -5,6 +5,10 @@ Absolute imu sensor.
 \newblock
   \url{http://www.mindsensors.com/index.php?module=pagemaster&PAGE_user_op=view_page&PAGE_id=158}.
 
+\bibitem{Eclipse}
+Eclipse luna.
+\newblock \url{https://eclipse.org/home/index.php}.
+
 \bibitem{Ev3_Large_Servo_Motor}
 Ev3 large servo motor.
 \newblock
@@ -15,6 +19,10 @@ Ev3 platform specifications.
 \newblock
   \url{http://botbench.com/blog/2013/01/08/comparing-the-nxt-and-ev3-bricks/}.
 
+\bibitem{Lejos}
+Lejos ev3, java for lego mindstorms.
+\newblock \url{http://www.lejos.org/ev3.php}.
+
 \bibitem{NXT_Acce}
 Nxt acce.
 \newblock
@@ -24,5 +32,15 @@ Nxt acce.
 Nxt gyro sensor.
 \newblock
   \url{https://www.hitechnic.com/cgi-bin/commerce.cgi?preadd=action&key=NGY1044}.
+
+\bibitem{WinScp}
+Winscp free sftp and ftp client for windows.
+\newblock \url{http://winscp.net/eng/index.php}.
+
+\bibitem{DataLogger}
+Ole Caprani.
+\newblock Datalogger version 4.02.13.
+\newblock
+  \url{http://legolab.cs.au.dk/DigitalControl.dir/NXT/src/DataLogger.java}.
 
 \end{thebibliography}

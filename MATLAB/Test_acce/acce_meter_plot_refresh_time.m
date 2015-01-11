@@ -5,6 +5,17 @@ load acce_data.txt
 
 acce_refresh_time = acce_data(:,2);
 
-plot(acce_refresh_time);
-ylabel('refresh time acce / ms');
-xlabel();
+[~,loc]=max(acce_refresh_time);
+acce_refresh_time(loc) = [];
+[~,loc]=max(acce_refresh_time);
+acce_refresh_time(loc) = [];
+[~,loc]=max(acce_refresh_time);
+acce_refresh_time(loc) = [];
+[~,loc]=max(acce_refresh_time);
+acce_refresh_time(loc) = [];
+
+
+plot(1:30:size(acce_refresh_time)*30,acce_refresh_time);
+title('Refresh time versus time');
+ylabel('time / ms');
+xlabel('time');

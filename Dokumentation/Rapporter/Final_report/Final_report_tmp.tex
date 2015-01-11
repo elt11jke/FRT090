@@ -450,6 +450,35 @@ The second limitation is availability of the connection points on the EV3, there
         
 \section{Implementation}
 	\subsection{Programs}
+	% PROGRAMS SECTION
+	In this section we will consider looking at the different programs and why the specific formats and programs where chosen as can bee seen in table \ref{table:Programs_used}. The OS (operating system) windows 7 was chosen due to the easiest setup guides on the internet for Lejos (the main programing language ). Lejos for main programing language was mainly used due to the familiarity of java, Lejos is a extension of java. It also has a class for every unit which was used in the project in other words made it easy to work with. Lejos had also support for parallel threads which other programs had diffucuilities    
+	
+	
+	
+	
+	
+	\begin{table}[h]
+		\begin{tabular}{|c|c|c|}
+			\hline
+			OS & Programing language & GUI \\ \hline 
+			Windows 7 & Lejos \cite{Lejos} & Eclipse \cite{Eclipse} \\ \hline  \hline \hline
+			Communication GUI & Communication format & Communication medium \\ \hline
+			Winscp \cite{WinScp} & txt -format & Bluetooth \\ \hline \hline \hline 
+			Data- caption & - & - \\\hline
+			DataLogger \cite{DataLogger}  & - & - \\ \hline	
+		\end{tabular}
+		\caption{Shows the programs and important formats which was used in the project.}
+		\label{table:Programs_used}
+	\end{table}
+
+
+	
+	
+	
+	
+	
+	
+	
     	\subsubsection{Lejos}
 	
 	
@@ -465,6 +494,7 @@ The second limitation is availability of the connection points on the EV3, there
 \appendix
 
 \section{Lejos Source Code}
+\label{Appendix:Lejos Source Code}
 \subsection{The main source code}
 
 \subsection{The sensor source test codes}
