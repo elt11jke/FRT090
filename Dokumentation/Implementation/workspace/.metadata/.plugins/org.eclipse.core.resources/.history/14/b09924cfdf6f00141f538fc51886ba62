@@ -1,0 +1,117 @@
+import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+//import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+
+
+
+public class Gyroscope {
+	
+	// Global variables
+	  static int UpdatePeriod = 1/300;   // HiTechnic sampel period is approx. 300 sampel/1 sek
+	  static  float angle=0;
+	  static float angleOffset=0;
+	  static HiTechnicGyro gyro;
+	  static float angle_of_set;
+	  static float current_integral = 0;
+	  static float[] current_sample = new float[1];
+	  static float[] previous_sample = new float[1];
+	  
+	
+
+	public static void main(String[] args) throws InterruptedException {
+		
+	
+		   LCD.drawString("Gyroscope_Program_Test", 0, 0);
+		
+		   Button.waitForAnyPress();
+		
+		   // Creation av datalogger
+	       DataLogger dl = new DataLogger("Sample.txt");
+	 
+	        gyro = new HiTechnicGyro(SensorPort.S2 );
+	       
+	       float[] sample = new float[1];
+	       //float sample ;
+	       int count=0;
+	       
+	       //calibrate();
+	       //calibrate_K();
+	       
+	      
+	       
+	       //gyro.fetchSample(sample, count);
+	       
+	       
+	       
+	       //angle=angle-angleOffset;
+	       
+	       
+	      
+	       previous_sample[0] = 0;
+	       while (! Button.ESCAPE.isDown())
+	       {		   
+	           
+	    	  // gyro.fetchSample(sample, count);
+	    	   gyro.fetchSample(current_sample, count);
+	    	   
+	    	  // angle = angle + (sample[count] * UpdatePeriod ) - angleOffset;
+	    	   //angle = (sample[count] * UpdatePeriod )+ angle_of_set;
+	    	   
+	    	   current_integral = current_integral + 1/2*current_sample[0] *UpdatePeriod + 1/2 * previous_sample[0] * UpdatePeriod; 
+	    	   previous_sample = current_sample;
+	    	   
+	    	   
+	    	   LCD.drawString("TestGyro", 3, 3);
+	    	   LCD.drawString("Angle:", 0, 5);
+	    	   //LCD.drawString(""+angle, 10, 5);
+	    	   LCD.drawString(""+current_integral, 10, 5);
+	    	   LCD.drawString(""+angleOffset, 10, 6);
+	           dl.writeSample(sample[count]);
+              // count++;
+	           calibrate();
+		       
+	           
+	           Thread.sleep(5);
+	       
+	       }
+	       dl.close();
+	       LCD.clear();
+	       LCD.drawString("Program stopped", 0, 0);
+	       Thread.sleep(2000);
+		
+		
+	}
+	 public static float calibrate(){
+		 
+		 float[] sampleCal = new float[1];
+		 
+		 for(int i=1; i<100; i++){
+		 
+			 gyro.fetchSample(sampleCal, 0);
+		     angleOffset=  (angleOffset + sampleCal[0]);
+	 }
+		 
+		 angleOffset= angleOffset/100;
+		 
+		 return angleOffset;
+	 }
+	 
+ public static float calibrate_K(){
+		 
+		 float[] sampleCal = new float[1];
+		 gyro.fetchSample(sampleCal, 0);
+		angle_of_set= sampleCal[0];
+		 
+	 
+		 
+		
+		 
+		 return angle_of_set;
+	 }
+}

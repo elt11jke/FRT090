@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;DemoInertia_Wheel&apos; to &apos;Kenan_Inertia_Wheel&apos;&#x0D;&#x0A;- Original project: &apos;Complete_Code&apos;&#x0D;&#x0A;- Original element: &apos;DemoInertia_Wheel&apos;&#x0D;&#x0A;- Renamed element: &apos;Kenan_Inertia_Wheel&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;DemoInertia_Wheel&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{Kenan_Inertia_Wheel.java[DemoInertia_Wheel" matchStrategy="1" name="Kenan_Inertia_Wheel" qualified="false" references="true" similarDeclarations="false" stamp="1417781051852" textual="false" version="1.0"/>
+</session>

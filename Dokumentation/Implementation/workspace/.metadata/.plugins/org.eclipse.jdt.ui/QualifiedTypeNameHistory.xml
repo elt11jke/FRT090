@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="lejos.hardware.lcd.GraphicsLCD"/>
+<fullyQualifiedTypeName name="java.awt.Button"/>
+<fullyQualifiedTypeName name="lejos.hardware.Button"/>
+<fullyQualifiedTypeName name="lejos.hardware.motor.BasicMotor"/>
+<fullyQualifiedTypeName name="lejos.hardware.port.MotorPort"/>
+<fullyQualifiedTypeName name="lejos.hardware.motor.Motor"/>
+<fullyQualifiedTypeName name="lejos.hardware.motor.NXTRegulatedMotor"/>
+<fullyQualifiedTypeName name="lejos.hardware.motor.NXTMotor"/>
+<fullyQualifiedTypeName name="lejos.hardware.lcd.LCD"/>
+<fullyQualifiedTypeName name="lejos.hardware.sensor.HiTechnicAccelerometer"/>
+<fullyQualifiedTypeName name="lejos.hardware.sensor.EV3GyroSensor"/>
+<fullyQualifiedTypeName name="lejos.hardware.ev3.LocalEV3"/>
+<fullyQualifiedTypeName name="javax.sound.sampled.Port"/>
+<fullyQualifiedTypeName name="lejos.hardware.port.Port"/>
+<fullyQualifiedTypeName name="lejos.hardware.sensor.HiTechnicGyro"/>
+<fullyQualifiedTypeName name="lejos.hardware.port.SensorPort"/>
+</qualifiedTypeNameHistroy>

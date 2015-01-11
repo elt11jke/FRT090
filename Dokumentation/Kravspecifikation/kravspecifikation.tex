@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{anysize}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+\linespread{1.2}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}       
+\usepackage[swedish]{babel}      
+\usepackage{epstopdf}     % För svensk avstavning och svenska
+\usepackage[osf]{mathpazo} % Palatino with smallcaps and oldstyle numbers
+\usepackage[scaled]{helvet}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{etoolbox}
+
+\newcommand\getcurrentref[1]{%
+ \ifnumequal{\value{#1}}{0}
+  {??}
+  {\the\value{#1}}%
+}  
+\newcommand\requirement[2]{
+	\numberedrow{Krav}{#1}{#2}
+}
+\newcommand\scenario[2] {
+	\numberedrow{Scenario}{#1}{#2}
+}
+\newcommand\numberedrow[3]{
+	\noindent
+	\textbf{#1 \getcurrentref{section}.\getcurrentref{subsection}.#2.} #3
+	
+}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[L]{Grupp B}
+
+\fancyhead[R]{Datum: \today | Version: 0.1 | Dokumentnummer: 1}
+
+
+\title{Kravspecifikation}                  	
+\author{Johan Kellerth Fredlund | Koshin Aliabase | Santiago Castro | Sadik Sulejmanovic}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+\tableofcontents
+\newpage
+
+\section*{Dokumenthistorik}
+
+\begin{tabular}{ l l l p{8.5cm} }
+Ver. & Datum & Beskrivning \\\hline
+0.1 & \today  & Struktur för dokumentet\\
+\end{tabular}
+
+
+
+\section{Funktionella krav}
+	\subsection{Regulatorn}
+		\subsubsection{Stabiliserande regulatorn}
+        	Krav 1.1.1: Systemet ska vara stabilt
+	
+    \subsection{Mjukvaran}
+		\subsubsection{Stabiliserande regulatorn}
+
+
+
+\end{document}
