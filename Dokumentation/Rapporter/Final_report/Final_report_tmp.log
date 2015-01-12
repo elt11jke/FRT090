@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.10)  12 JAN 2015 11:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.9.10)  12 JAN 2015 12:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1095,7 +1095,7 @@ Package pdftex.def Info: plottttttt.png used on input line 648.
 [23 <./plottttttt.png>]
 
 LaTeX Warning: Reference `ig:plot_parallel_threads_IMU' on page 24 undefined on
- input line 680.
+ input line 681.
 
 
 <comp_filter_control_signal_20150112_19_Dec.jpg, id=441, 561.09625pt x 420.5712
@@ -1103,10 +1103,10 @@ LaTeX Warning: Reference `ig:plot_parallel_threads_IMU' on page 24 undefined on
 File: comp_filter_control_signal_20150112_19_Dec.jpg Graphic file (type jpg)
  <use comp_filter_control_signal_20150112_19_Dec.jpg>
 Package pdftex.def Info: comp_filter_control_signal_20150112_19_Dec.jpg used on
- input line 684.
+ input line 685.
 (pdftex.def)             Requested size: 448.50105pt x 336.1751pt.
 
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 684--685
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 685--686
 [][] 
  []
 
@@ -1119,10 +1119,10 @@ t>
 File: comp_filter_control_signal_20150112_3_Jan.jpg Graphic file (type jpg)
  <use comp_filter_control_signal_20150112_3_Jan.jpg>
 Package pdftex.def Info: comp_filter_control_signal_20150112_3_Jan.jpg used on 
-input line 693.
+input line 694.
 (pdftex.def)             Requested size: 448.50105pt x 336.79115pt.
 
-Overfull \hbox (103.50105pt too wide) in paragraph at lines 693--694
+Overfull \hbox (103.50105pt too wide) in paragraph at lines 694--695
 [][] 
  []
 
@@ -1134,10 +1134,10 @@ File: parallel_threads_two_sensors_01.jpg Graphic file (type jpg)
 
 <use parallel_threads_two_sensors_01.jpg>
 Package pdftex.def Info: parallel_threads_two_sensors_01.jpg used on input line
- 700.
+ 701.
 (pdftex.def)             Requested size: 482.9979pt x 245.20862pt.
 
-Overfull \hbox (137.9979pt too wide) in paragraph at lines 700--701
+Overfull \hbox (137.9979pt too wide) in paragraph at lines 701--702
 [][] 
  []
 
@@ -1148,10 +1148,10 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: parallel_threads_IMU.jpg Graphic file (type jpg)
 
 <use parallel_threads_IMU.jpg>
-Package pdftex.def Info: parallel_threads_IMU.jpg used on input line 708.
+Package pdftex.def Info: parallel_threads_IMU.jpg used on input line 709.
 (pdftex.def)             Requested size: 482.9979pt x 362.03076pt.
 
-Overfull \hbox (137.9979pt too wide) in paragraph at lines 708--709
+Overfull \hbox (137.9979pt too wide) in paragraph at lines 709--710
 [][] 
  []
 
@@ -1167,7 +1167,7 @@ _control_signal_20150112_3_Jan.jpg>] [27 <./parallel_threads_two_sensors_01.jpg
 ] [31] [32] [33] [34] [35]
 [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47]
 
-./Final_report_tmp.tex:1707: Package inputenc Error: Keyboard character used is
+./Final_report_tmp.tex:1709: Package inputenc Error: Keyboard character used is
  undefined
 (inputenc)                in inputencoding `utf8x'.
 
@@ -1175,13 +1175,13 @@ See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1707 %Design av Regulatorn för 
+l.1709 %Design av Regulatorn för 
                                  inertia hjulet
 ? s
 OK, entering \scrollmode...
 [48]
 
-./Final_report_tmp.tex:1762: Package inputenc Error: Keyboard character used is
+./Final_report_tmp.tex:1764: Package inputenc Error: Keyboard character used is
  undefined
 (inputenc)                in inputencoding `utf8x'.
 
@@ -1189,30 +1189,30 @@ See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1762 %Modell för 
+l.1764 %Modell för 
                    inverted pendulum (inertia hjulet)
 You need to provide a definition with \DeclareInputText 
 or \DeclareInputMath before using this key.
 
 
-./Final_report_tmp.tex:1769: Package utf8x Error: MalformedUTF-8sequence.
+./Final_report_tmp.tex:1771: Package utf8x Error: MalformedUTF-8sequence.
 
 See the utf8x package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1769 %Parametrar som vi ändrar
+l.1771 %Parametrar som vi ändrar
                                 
 Ifthecharacterisanargument,putitin{}
 
 
-./Final_report_tmp.tex:1769: Package utf8x Error: MalformedUTF-8sequence.
+./Final_report_tmp.tex:1771: Package utf8x Error: MalformedUTF-8sequence.
 
 See the utf8x package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1769 %Parametrar som vi ändrar
+l.1771 %Parametrar som vi ändrar
                                 
 Ifthecharacterisanargument,putitin{}
 
@@ -1226,7 +1226,7 @@ File: uninames.dat 2013/05/13 UCS: Unicode character names, compressed
 File: uni-255.def 2013/05/13 UCS: Unicode data U+FF00..U+FFFF
 )
 
-./Final_report_tmp.tex:1769: Package ucs Error: Unknown Unicode character 65533
+./Final_report_tmp.tex:1771: Package ucs Error: Unknown Unicode character 65533
  = U+FFFD,
 (ucs)                possibly declared in uni-255.def.
 (ucs)                Type H to see if it is available with options.
@@ -1235,7 +1235,7 @@ See the ucs package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1769 %Parametrar som vi ändrar
+l.1771 %Parametrar som vi ändrar
                                 
 Unicode character 65533 = U+FFFD:
 REPLACEMENT CHARACTER
@@ -1249,14 +1249,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--16
  []
 
 ) [51]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1871.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1871.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1873.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1873.
  (./Final_report_tmp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1871.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1871.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1873.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1873.
 
 Package rerunfilecheck Info: File `Final_report_tmp.out' has not changed.
-(rerunfilecheck)             Checksum: 7A5330196E5A4BF754C4761CF7EE13D4;2403.
+(rerunfilecheck)             Checksum: 16E532082F313F0ED2FBAE8F709F17C0;2388.
 
 
 LaTeX Warning: There were undefined references.
@@ -1264,13 +1264,13 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1871.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1873.
  ) 
 Here is how much of TeX's memory you used:
- 21352 strings out of 493117
- 385329 string characters out of 6135433
+ 21353 strings out of 493117
+ 385342 string characters out of 6135433
  509552 words of memory out of 5000000
- 23204 multiletter control sequences out of 15000+600000
+ 23205 multiletter control sequences out of 15000+600000
  9965 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,10n,96p,1868b,1909s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1291,10 +1291,10 @@ ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2014/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Final_report_tmp.pdf (51 pages, 6816113 bytes).
+Output written on Final_report_tmp.pdf (51 pages, 6817361 bytes).
 PDF statistics:
- 1991 PDF objects out of 2073 (max. 8388607)
- 1865 compressed objects within 19 object streams
+ 1992 PDF objects out of 2073 (max. 8388607)
+ 1866 compressed objects within 19 object streams
  1236 named destinations out of 1440 (max. 500000)
  468 words of extra memory for PDF output out of 10000 (max. 10000000)
 
