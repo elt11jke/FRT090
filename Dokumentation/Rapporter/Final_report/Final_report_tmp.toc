@@ -21,11 +21,20 @@
 \contentsline {subsubsection}{\numberline {4.2.2}Simulink model}{13}{subsubsection.4.2.2}
 \contentsline {section}{\numberline {5}Implementation}{13}{section.5}
 \contentsline {subsection}{\numberline {5.1}Programs}{13}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Lejos}{15}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}NXC}{15}{subsubsection.5.1.2}
-\contentsline {subsection}{\numberline {5.2}Sensors}{15}{subsection.5.2}
 \contentsline {section}{\numberline {6}Results}{15}{section.6}
 \contentsline {section}{\numberline {7}Discussion and Conclusion}{15}{section.7}
 \contentsline {section}{\numberline {A}Lejos Source Code}{15}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}The main source code}{15}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}The sensor source test codes}{15}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.2}DataLogger}{26}{subsection.A.2}
+\contentsline {subsubsection}{\numberline {A.2.1}DataLogger Orginal}{26}{subsubsection.A.2.1}
+\contentsline {subsubsection}{\numberline {A.2.2}DataLogger Modified}{28}{subsubsection.A.2.2}
+\contentsline {subsection}{\numberline {A.3}The sensor source test codes}{31}{subsection.A.3}
+\contentsline {subsubsection}{\numberline {A.3.1}The gyroscope source test code}{31}{subsubsection.A.3.1}
+\contentsline {subsubsection}{\numberline {A.3.2}The accelerometer test source code}{32}{subsubsection.A.3.2}
+\contentsline {subsubsection}{\numberline {A.3.3}The complementary filter source test code}{34}{subsubsection.A.3.3}
+\contentsline {section}{\numberline {B}Design}{36}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}Roll control}{36}{subsection.B.1}
+\contentsline {subsubsection}{\numberline {B.1.1}PDI- control}{36}{subsubsection.B.1.1}
+\contentsline {subsubsection}{\numberline {B.1.2}The discrete transform}{37}{subsubsection.B.1.2}
+\contentsline {subsubsection}{\numberline {B.1.3}The model}{37}{subsubsection.B.1.3}
+\contentsline {subsubsection}{\numberline {B.1.4}Initialize model}{39}{subsubsection.B.1.4}

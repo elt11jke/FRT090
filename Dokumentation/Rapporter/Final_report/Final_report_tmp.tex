@@ -451,8 +451,7 @@ The second limitation is availability of the connection points on the EV3, there
 \section{Implementation}
 	\subsection{Programs}
 	% PROGRAMS SECTION
-	In this section we will consider looking at the different programs and why the specific formats and programs where chosen as can bee seen in table \ref{table:Programs_used}. The OS (operating system) windows 7 was chosen due to the easiest setup guides on the internet for Lejos (the main programing language ). Lejos for main programing language was mainly used due to the familiarity of java, Lejos is a extension of java. It also has a class for every unit which was used in the project in other words made it easy to work with. Lejos had also support for parallel threads which other programs had diffucuilities    
-	
+	In this section we will consider looking at the different programs and why the specific formats and programs where chosen as can bee seen in table \ref{table:Programs_used}. The OS (operating system) windows 7 was chosen due to the easiest setup guides on the internet for Lejos (the main programing language ). Lejos for main programing language was mainly used due to the familiarity of java, Lejos is a extension of java. It also has a class for every unit which was used in the project in other words made it easy to work with. Lejos had also support for parallel threads which other programs had difficulties with. Eclipse was the right deal for us because of the familiarity of it's functions and appearance. As well as the easy to use with EV3 because of one function that compiled, downloaded and ran the java program in in the EV3 with one button in the GUI. \\ The communication was made possible thru WinSCP and the only program that we could get working with EV3 and the desktop computer. The function that allowed us to drag and drop files from and to the EV3 was one of the major advantages with the given program. The format for transmitting data from measurements was "txt" because of the class DataLogger which handled it, txt is also easy to use in matlab so therefore it was the one to use. The DataLogger was the class which made it possible to transmit data in a easy fashion but also was not to complicated to upgrade which we also did. The original DataLogger class can been found in appendix \ref{Appendix:DataLogger_Orginal} while the modified can be found at Appendix \ref{Appendix:DataLogger_Modified}. Bluetooth was chosen because that was the only one that worked at the time and was the easiest to use because of the amount of aid on the internet regarding connection thru bluetooth.
 	
 	
 	
@@ -470,22 +469,56 @@ The second limitation is availability of the connection points on the EV3, there
 		\caption{Shows the programs and important formats which was used in the project.}
 		\label{table:Programs_used}
 	\end{table}
-
-
-	
-	
-	
-	
-	
-	
-	
-    	\subsubsection{Lejos}
-	
-	
-    	\subsubsection{NXC}
-    \subsection{Sensors}
     
 \section{Results}
+%RESULTS
+
+The results of the project can bee seen in figures \ref{fig:plot_comp_filter_control_signal_19_Dec}, \ref{fig:plot_comp_filter_control_signal_3_Jan}, \ref{fig:plot_parallel_threads_two_sensors} and \ref{fig:plot_parallel_threads_IMU}. The figure \ref{fig:plot_comp_filter_control_signal_19_Dec} shows the first control signal that were sampled and the figure \ref{fig:plot_comp_filter_control_signal_3_Jan} shows the last one to be sampled with improvments. However the figures \ref{fig:plot_parallel_threads_two_sensors} and \ref{ig:plot_parallel_threads_IMU} was the results with the improvements by using paralled threads. As can be seen there where was 
+
+  \begin{figure}[h]
+		%\centering
+		\includegraphics[width=1.3\textwidth]{comp_filter_control_signal_20150112_19_Dec}
+		\caption{Shows the relation between the complementary filter and the control signal.}
+		\label{fig:plot_comp_filter_control_signal_19_Dec}
+  \end{figure}
+  
+  
+
+   \begin{figure}[h]
+		%\centering
+		\includegraphics[width=1.3\textwidth]{comp_filter_control_signal_20150112_3_Jan}
+		\caption{Shows the time taken for the two sensors to update their values with parallel threads.}
+		\label{fig:plot_comp_filter_control_signal_3_Jan}
+  \end{figure}
+  
+     \begin{figure}[h]
+		%\centering
+		\includegraphics[width=1.4\textwidth]{parallel_threads_two_sensors_01}
+		\caption{Shows the time taken for the IMU sensor to update its values with parallel threads.}
+		\label{fig:plot_parallel_threads_two_sensors}
+  \end{figure}
+  
+  
+   \begin{figure}[h]
+		%\centering
+		\includegraphics[width=1.4\textwidth]{parallel_threads_IMU}
+		\caption{Shows the relation between the complementary filter and the control signal.}
+		\label{fig:plot_parallel_threads_IMU}
+  \end{figure}
+  
+  
+  
+  
+  
+  
+  
+  
+	
+
+
+
+
+
 
 \section{Discussion and Conclusion}
 
@@ -496,9 +529,1134 @@ The second limitation is availability of the connection points on the EV3, there
 \section{Lejos Source Code}
 \label{Appendix:Lejos Source Code}
 \subsection{The main source code}
+\label{Appendix:The_main_source_code}
+\begin{lstlisting}
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+import lejos.hardware.sensor.MindsensorsAbsoluteIMU;
+import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.motor.NXTMotor;
+import lejos.hardware.Button;
+import lejos.robotics.SampleProvider;
+
+public class RealCodeInertia2015 {
+
+
+		static final long h= 30;
+	    // sleep can only take in long which is bounded, greater than zero
+		//static final long h = 5;
+		
+		private static final float Ku = 0.0042f*((1/0.05f));
+		
+		static final float phi11 = 1.0192f;
+		static final float phi12 = 0.0302f;
+		static final float phi21 = 1.2844f;
+		static final float phi22 = 1.0192f;
+		static final float phi33 = 1f;
+		
+		static final float gamma1 = -0.0112f;
+		static final float gamma2 = -0.7507f;
+		static final float gamma3 = 7.8431f;
+
+		static final float l1 = -13.7278f;
+		static final float l2 = -2.1648f;
+		static final float l3 = -0.0750f;
+		
+		      
+		
+		static final float a = 1.214454545454f;
+	
+		
+		
+
+		static float u = 0.0f;
+
+		static int power = 0;
+
+		static float x1,x2,x3;
+
+		static float x1Old =0.0f;
+		static float x2Old= 0.0f;
+		static float x3Old = 0.0f;
+	
+		//For the acce meter
+		static MindsensorsAbsoluteIMU sensor = new MindsensorsAbsoluteIMU(SensorPort.S1);
+		static SampleProvider AcceMode;
+		static SampleProvider RateMode;
+		static List<Integer> acceTime = new ArrayList<Integer>();
+		static List<Integer> gyroTime = new ArrayList<Integer>();
+		static DataLogger dl;
+		
+		
+		static float[] sample_Acce = new float[3]; 
+		static double rad_Acce;
+		static double radians;
+		
+		// For the gyroscope
+		static  float angle_Gyro=0;
+		static float angleOffset=0;
+		//static HiTechnicGyro gyro =new HiTechnicGyro(SensorPort.S2 ); 
+		static float angle_of_set;
+		static float[] sample = new float[1];
+		static float offset_gyro=0f;
+		static float offset_acce=0f;
+		static float sample_1=0f;
+		
+		// For the complementary filter
+		static float comp_filter_angle=0;
+		static float A = 0.95f;
+		static float count;
+		
+		//Wheel Speed
+		static float speed_W=0;
+		
+		static long time;
+		static long tAfterLogWrite;
+		static long[] data;
+		
+		static List<Integer> listGlobalTime = new ArrayList<Integer>();
+		static List<Integer> listTimeAcce = new ArrayList<Integer>();
+		static List<Integer> listTimeGyro = new ArrayList<Integer>();
+		static List<Integer> listTimeComp = new ArrayList<Integer>();
+		static List<Integer> listPrecStates = new ArrayList<Integer>();
+		static List<Integer> list_gyro_angle = new ArrayList<Integer>();
+		
+		
+		// The values of acce_sample, gyro_sample, control signal, compl_filter, offset
+		static List<Integer> listAcce = new ArrayList<Integer>();
+		static List<Integer> listGyro = new ArrayList<Integer>();
+		static List<Integer> listControl = new ArrayList<Integer>();
+		static List<Integer> listComp = new ArrayList<Integer>();
+		static List<Integer> listWheel = new ArrayList<Integer>();
+		
+		// The values of the offset
+		
+		static List<Integer> listoffset = new ArrayList<Integer>();
+		static List<Integer> listoffset_acce = new ArrayList<Integer>();
+		
+		
+		
+		
+		
+		public static void main(String[] args) throws InterruptedException{
+			AcceMode= sensor.getAccelerationMode();
+			RateMode= sensor.getRateMode();
+			//INIT PROGRAM
+	
+			LCD.drawString("Initialize Calibrate", 0, 1);
+			
+			Button.waitForAnyPress();
+			
+			calc_offset_gyro();
+			calc_offset_acce();
+			LCD.clearDisplay();
+			LCD.drawString("Press to start", 0, 1);
+			Button.waitForAnyPress();
+			LCD.clearDisplay();
+			NXTMotor m1 = new NXTMotor(MotorPort.A);		
+		        NXTMotor m2 = new NXTMotor(MotorPort.B);
+		    
+			count=0;
+			
+			//INIT PROGRAM 
+			DataLogger dl = new DataLogger("sample.txt"); 
+			
+			//SampleProvider accelerationProvider= accelerationSensor.getAccelerationMode();
+			long t = System.currentTimeMillis();
+			long t_before;
+		while(Button.ESCAPE.isUp()){
+			
+			time = System.currentTimeMillis();
+		
+	
+
+			/////////////////////////////////////////////////
+			////////compute angles///////////////////////////
+			/////from the complementary filters/////////////
+			///////////////////////////////////////////////
+			
+			
+			 t_before = System.currentTimeMillis();
+			 
+				float[] sampleAcce = new float[AcceMode.sampleSize()];
+				
+				AcceMode.fetchSample(sampleAcce, 0);
+			
+			   
+
+				
+			  rad_Acce =  (sampleAcce[0]/9.81)- offset_acce ;
+			  listAcce.add( (int) (sampleAcce[1] * 1000f)  ) ;  // TODO Needs to be converted back in the plot script
+			  //double rad_Acce = Math.toRadians(angle_Acce);
+			  //long timeAccel = System.currentTimeMillis() - t_before;
+			  
+			  
+			  
+			  // The gyro time
+			 // t_before = System.currentTimeMillis();
+
+				float[] sampleGyro= new float[RateMode.sampleSize()];	
+				
+				RateMode.fetchSample(sampleGyro,0);
+		      sample_1 = sampleGyro[0]  - offset_gyro; 
+		      double rad_gyro = Math.toRadians(sample_1);
+		      
+		      listGyro.add((int) ( sample_1*(1000f) ) );   	// TODO Needs to be converted back in the plot script
+		      
+		      
+		      //long timeGyro =System.currentTimeMillis()-t_before ;
+		      
+			
+		      
+		      // The complementary filter
+		      //t_before = System.currentTimeMillis();
+			  comp_filter_angle = (float) (A * (comp_filter_angle + rad_gyro * 0.04) + (1-A)*(rad_Acce)) ;
+			  listComp.add((int)  (   comp_filter_angle * (1000f)) ); // TODO Needs to be converted back in the plot script
+	
+			x1Old= comp_filter_angle; //==> from the complementary filters which is comp_filter_angle///// 
+			
+			x2Old = sample_1; //==> rate from the gyro - offset = sample_1 /////
+			
+			
+			//LCD.drawString("Angle", 0, 0);
+			//LCD.drawString("Ang vel", 1, 0);
+			
+			
+		
+			/////////////////////////////////////////////////////////
+			///////Calculations of the wheel speed/////////////////
+			/////////////////////////////////////////////////////
+			
+			 t_before = System.currentTimeMillis();
+			 float radians_Wheel = (float) (m1.getTachoCount() *  ((Math.PI)/180));
+			 //m1.resetTachoCount();
+			 long time_wheel = System.currentTimeMillis()- t_before;
+			  x3Old = (float) (radians_Wheel/(0.04)); // ==> speed of the wheel in radians /sec ==> x3Old
+			listWheel.add((int)(x3Old));
+			/////////////////////////////////////////////////
+			//////////////compute control laws/////////////
+			////////////////////////////////////////////////
+			  
+		     u = -1*( (l1 * x1Old) +( l2 * x2Old) +( l3 * x3Old) ) ;
+		     listControl.add((int) ( u* (1000f)  ) ); // TODO Needs to be converted back in the plot script
+		
+			
+			power = (int) ( (u) / Ku) ;
+			if(power>100){
+				power= 100;
+			}
+
+			if(power<-100){
+
+				power= -100;
+			}
+			 // LCD.drawString(Integer.toString(m1.getTachoCount()), 0, 0);
+				
+			
+			 t_before = System.currentTimeMillis();
+			 m1.setPower(power);
+			 m2.setPower(power);
+			
+
+			m2.backward();
+			m1.backward();	
+			long set_power_time =System.currentTimeMillis();
+			
+      
+	
+			//PreCalculate the next States
+			
+			x1 = phi11*x1Old+ phi12*x2Old + gamma1*(u);
+			x2 = phi21*x1Old+ phi22*x2Old + gamma2*(u);
+			x3 = phi33*x3Old+ gamma3*(u);
+			
+			x1Old=x1;
+			x2Old=x2;
+			x3Old=x3;
+			long prec_states_time = System.currentTimeMillis()- set_power_time ;
+			
+			
+            list_gyro_angle.add((int) (comp_filter_angle*(1000f)) );  // TODO Needs to be converted back in the plot script
+			
+		
+
+			t=  t + h ;
+			long duration= t - System.currentTimeMillis();
+			
+			if (duration > 0) {
+				try {
+					Thread.sleep(duration);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+			
+			long time2 = System.currentTimeMillis() - time ;
+			
+			
+			listGlobalTime.add((int)time2);
+			
+			
+			
+			//listTimeGyro.add((int)timeGyro);
+			
+		//	listTimeComp.add((int)timeComp);
+			
+	//		listPrecStates.add((int)prec_states_time);
+			
+			
+			
+			//Button.waitForAnyPress();
+			}
+		
+			m1.setPower(0);
+			m2.setPower(0);
+		
+		   for(int a = 0; a < listGlobalTime.size()  ; a++){
+			   
+		    dl.writeSingleSample(listGlobalTime.get(a));
+		    //dl.writeSingleSample(list_gyro_angle.get(a));
+		     //dl.writeSingleSample(listTimeAcce.get(a));
+		    //dl.writeSingleSample(listTimeGyro.get(a));
+		    //dl.writeSingleSample(listTimeComp.get(a));
+		    //dl.writeSingleSample(listPrecStates.get(a));
+		    dl.writeSingleSample(listAcce.get(a));
+		    dl.writeSingleSample(listGyro.get(a));
+		    dl.writeSingleSample(listControl.get(a));
+		    dl.writeSingleSample(listComp.get(a));
+		     //dl.writeSingleSample(listWheel.get(a));
+		     
+		     if(listoffset.size() > a  ){
+		    	 dl.writeSingleSample(listoffset.get(a));
+		    	
+		    	 
+		     }else{
+		    	 dl.writeSingleSample(0);
+		    	
+		     }
+		     
+		     if(listoffset_acce.size() > a  ){
+		    	
+		    	 dl.writeSingleSample(listoffset_acce.get(a));
+		    	 
+		     }else{
+		    	 dl.writeSingleSample(0);
+		    	 
+		     }
+		    
+		    //dl.newLine();
+		    
+		   //}
+		   
+		   // write the offset in the end
+		   dl.newLine();
+		   }
+		   dl.newLine();
+		   dl.writeSingleSample((int) (offset_gyro*(1000f))  );		// TODO Needs to be converted back in the plot script
+		   dl.newLine();
+		   dl.writeSingleSample((int) (offset_acce*(1000f))  );
+		   //END
+		    m1.stop();
+		    m2.stop();
+		    m1.close();
+		    m2.close();
+			LCD.clear();
+		    LCD.drawString("Program stopped", 0, 0);
+		 
+		}
+	
+		
+		
+		public static void calc_offset_gyro(){
+			
+			//LCD.drawString("Calibrate gyro", 0, 0);
+			float temp_offset =0;
+			int count = 100;
+			for(int i =0;i<count ; i++){
+				float[] sampleGyro= new float[RateMode.sampleSize()];	
+				
+				RateMode.fetchSample(sampleGyro,0);
+				  listoffset.add((int) (sampleGyro[0] *(1000f) ) ); // TODO Needs to be converted back in the plot script
+				  temp_offset = temp_offset + sampleGyro[0];
+				  try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				  }
+			
+			offset_gyro= temp_offset/count;
+			
+		}
+		
+public static void calc_offset_acce(){
+			
+			
+			//float[] sample_acce =  new float[3]; 
+
+			float temp_offset = 0;
+			int count = 100;
+			for(int i =0;i<count ; i++){
+				float[] sampleAcce = new float[AcceMode.sampleSize()];
+				
+				AcceMode.fetchSample(sampleAcce, 0);
+				  temp_offset = temp_offset + sampleAcce[0];
+				  int sample_acce_temp_write=(int) (sampleAcce[1] * 1000f);
+				  listoffset_acce.add( (sample_acce_temp_write) ); // TODO Needs to be converted back in the plot script
+				  LCD.drawString(Float.toString(temp_offset), 0, 0);
+				  try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				  }
+			offset_acce = temp_offset/count;
+			
+		}
+	}
+
+	
+\end{lstlisting}
+\subsection{DataLogger}
+	\subsubsection{DataLogger Orginal}
+	\label{Appendix:DataLogger_Orginal}
+	\begin{lstlisting}
+import lejos.hardware.lcd.LCD;
+import lejos.ev3.*;
+
+import java.io.*;
+/**
+ * A simple data logger that can be used to sample a sequence
+ * of integer data values in a flash file. The
+ * file is a text consosting of a sequence of lines with
+ * a time value and a sample data value separated by a comma.
+ * 
+ * When data has been sampled the flash file can be transfered to a
+ * PC by means of the tool nxjbrowse.
+ * 
+ * @author  Ole Caprani
+ * @version 4.02.13
+ */
+public class DataLogger {
+    private File f;
+    private FileOutputStream fos;
+    private int startTime;
+
+    public DataLogger (String fileName)
+    {
+        try
+        {	        
+            f = new File(fileName);
+            if( ! f.exists() )
+            {
+                f.createNewFile();
+            }
+            else
+            {
+                f.delete();
+                f.createNewFile();
+            }
+             
+            fos = new  FileOutputStream(f);
+        }
+        catch(IOException e)
+        {
+            LCD.drawString(e.getMessage(),0,0);
+            System.exit(0);
+        }
+        startTime = (int)System.currentTimeMillis();
+    }
+    
+    public void start()
+    {
+    	startTime = (int)System.currentTimeMillis();
+    }
+	
+    public void writeSample( int time, float sample )
+    {
+		
+        try
+        {
+            Integer timeInt = new Integer(time);
+            String timeString = timeInt.toString();
+            
+            Float sampleInt = new Float(sample);
+            String sampleString = sampleInt.toString();
+            
+            for(int i=0; i<timeString.length(); i++)
+            {
+                fos.write((byte) timeString.charAt(i));
+            }
+            
+            // Separate items with comma
+            fos.write((byte)(','));
+            
+            for(int i=0; i<sampleString.length(); i++)
+            {
+                fos.write((byte) sampleString.charAt(i));
+            }
+
+            // New line
+            fos.write((byte)('\r'));
+            fos.write((byte)('\n'));				
+
+        }
+        catch(IOException e)
+        {
+            LCD.drawString(e.getMessage(),0,0);
+            System.exit(0);
+        }
+    }
+    
+    public void writeSample( float sample )
+    {
+    	writeSample((int)System.currentTimeMillis() - startTime, sample);
+    }
+    
+    public void close()
+    {
+        try
+        {
+            fos.close();
+        }
+        catch(IOException e)
+        {
+            LCD.drawString(e.getMessage(),0,0);
+            System.exit(0);
+        }		 
+    }
+}
+	\end{lstlisting}
+	\subsubsection{DataLogger Modified}
+	\label{Appendix:DataLogger_Modified}
+	\begin{lstlisting}
+	import lejos.ev3.*;
+import lejos.hardware.lcd.LCD;
+
+import java.io.*;
+/**
+ * A simple data logger that can be used to sample a sequence
+ * of integer data values in a flash file. The
+ * file is a text consosting of a sequence of lines with
+ * a time value and a sample data value separated by a comma.
+ * 
+ * When data has been sampled the flash file can be transfered to a
+ * PC by means of the tool nxjbrowse.
+ * 
+ * @author  Ole Caprani
+ * @version 4.02.13
+ * Modified by Group B
+ */
+public class DataLogger 
+{
+    private File f;
+    private FileOutputStream fos;
+    private int startTime;
+
+    public DataLogger (String fileName)
+    {
+        try
+        {	        
+            f = new File(fileName);
+            if( ! f.exists() )
+            {
+                f.createNewFile();
+            }
+            else
+            {
+                f.delete();
+                f.createNewFile();
+            }
+             
+            fos = new  FileOutputStream(f);
+        }
+        catch(IOException e)
+        {
+        	 LCD.drawString(e.getMessage(),0,0);
+           
+            System.exit(0);
+        }
+        startTime = (int)System.currentTimeMillis();
+    }
+    
+    
+    /* Sets the variable startTime to the current time*/
+    
+    public void start()
+    {
+    	startTime = (int)System.currentTimeMillis();
+    }
+	/* Writes a sample to a txt file
+	  */
+    public void writeSample( int time, int sample )
+    {
+		
+        try
+        {
+        	// Make a string from the time 
+            Integer timeInt = new Integer(time);
+            String timeString = timeInt.toString();
+            
+            // Make a string from the sample
+            Integer sampleInt = new Integer(sample);
+            String sampleString = sampleInt.toString();
+            
+            /* Writes the time in the txt file (fos) */
+            for(int i=0; i<timeString.length(); i++)
+            {
+                fos.write((byte) timeString.charAt(i));
+            }
+            
+            // Separate items with comma
+            fos.write((byte)(','));
+            
+            /* Writes the sample to the txt file */
+            for(int i=0; i<sampleString.length(); i++)
+            {
+                fos.write((byte) sampleString.charAt(i));
+            }
+
+            // New line, makes no sense why have the both
+            fos.write((byte)('\r'));
+            fos.write((byte)('\n'));				
+
+        }
+        catch(IOException e)
+        {
+        	  LCD.drawString(e.getMessage(),0,0);
+            System.exit(0);
+        }
+    }
+    
+    public void writeSample( int sample )
+    {
+    	writeSample((int)System.currentTimeMillis() - startTime, sample);
+    }
+    
+    public void close()
+    {
+        try
+        {
+            fos.close();
+        }
+        catch(IOException e)
+        {
+            LCD.drawString(e.getMessage(),0,0);
+            System.exit(0);
+        }		 
+    }
+    
+    /* Prepares a new line for more data to be written */
+    public void newLine(){
+    	// New line, makes no sense why have the both
+    	try
+    	{
+    		fos.write((byte)('\r'));
+            fos.write((byte)('\n'));
+    	}
+    	catch(IOException e)
+    	{
+    		 LCD.drawString(e.getMessage(),0,0);
+           
+    	}
+    }
+    
+    /* Writes the single sample to the txt file and creates a comma at the end */
+    public void writeSingleSample(int sample){
+    	// Make a string form the sample
+    	Integer sampleInt = new Integer(sample);
+        String sampleString = sampleInt.toString();
+    	
+    	try
+    	{
+    		for(int i=0; i<sampleString.length(); i++)
+            {
+                fos.write((byte) sampleString.charAt(i));
+            }	
+    		 // Separate items with comma
+            fos.write((byte)(','));
+    	}
+    	catch(IOException e)
+    	{
+    		 LCD.drawString(e.getMessage(),0,0);
+    	}
+    }
+}
+	\end{lstlisting}
+	
+	
 
 \subsection{The sensor source test codes}
+	\subsubsection{The gyroscope source test code}
+	\label{Appendix:The_gyroscope_test_source_code}
+	\begin{lstlisting}
+	import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+//import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
 
+
+
+public class Gyroscope {
+	
+	// Global variables
+	   // HiTechnic sampel period is approx. 300 sampel/1 sek
+	  static  float angle_Gyro=0;
+	  static float angleOffset=0;
+	  static HiTechnicGyro gyro;
+	  static float angle_of_set;
+	  static DataLogger dl = new DataLogger("Data_Gyro.txt");
+	  static float[] sample = new float[1];
+	  
+	  
+	public static void main(String[] args) throws InterruptedException {
+		
+	
+		   LCD.drawString("Gyroscope_Program_Test", 0, 0);
+		
+		   Button.waitForAnyPress();
+	        gyro = new HiTechnicGyro(SensorPort.S2 );
+	       
+	  
+	     
+	
+	       get_Data_Gyro();
+	       dl.close();
+	       LCD.clear();
+	       LCD.drawString("Program stopped", 0, 0);
+	       Thread.sleep(2000);
+		
+		
+	}
+	
+	public static void get_Data_Gyro(){
+		while (! Button.ESCAPE.isDown())
+	       {		   
+	           
+	    	   gyro.fetchSample(sample, 0);
+	    	   
+	    	   //calibrate the sample, deal with the offset assuming it is constant
+	    	   sample[0] = sample[0];
+	    	  angle_Gyro += (sample[0] * 0.003333333 ) ;
+	    	   LCD.drawString("TestGyro", 3, 1);
+	    	   LCD.drawString("Angle:", 0, 3);
+	    	   LCD.drawString(""+angle_Gyro, 10, 4);
+	    	   
+	    	   LCD.drawString("sample", 0, 5);
+	    	   LCD.drawString(""+sample[0], 10, 6);
+	           dl.writeSample(sample[0]);   
+	       }	
+	}
+	/* public static float calibrate(){
+		 
+		 float[] sampleCal = new float[1];
+		 
+		 for(int i=1; i<100; i++){
+		 
+			 gyro.fetchSample(sampleCal, 0);
+		     angleOffset=  (angleOffset + sampleCal[0]);
+	 }
+		 
+		 angleOffset= angleOffset/100;
+		 
+		 return angleOffset;
+	 }
+	 */
+
+}
+
+	\end{lstlisting}
+	
+	
+	\subsubsection{The accelerometer test source code}
+	\begin{lstlisting}
+	import lejos.hardware.Button;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+
+// import for the accelerometer
+import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+
+
+
+public class Accelerometer {
+	
+	static HiTechnicAccelerometer acce_Meter;
+	static DataLogger dl = new DataLogger("ev3_acce_Meter_data.txt"); 
+	static float sample_Acce[] = new float[3]; 
+	static double angle_Acce;
+	static double radians;
+	
+	public static void main(String[] args) throws InterruptedException {
+	// Define define the acce_Meter
+		acce_Meter = new HiTechnicAccelerometer(SensorPort.S1);
+		
+		LCD.drawString("Acce_Meter_Program_Test", 0, 0);
+		
+		   Button.waitForAnyPress();
+		
+		get_Data_Acce();
+		
+	
+		   dl.close();
+	       LCD.clear();
+	       LCD.drawString("Program stopped", 0, 0);
+	       Thread.sleep(2000);
+	
+	}
+	
+	
+	public static void get_Data_Acce(){
+		while (! Button.ESCAPE.isDown()){
+			  acce_Meter.fetchSample(sample_Acce, 0);
+			
+			  
+			  // calc of the angle
+			  
+			  radians = Math.atan( ( sample_Acce[1]/10 ) / (sample_Acce[2]/10 ) );
+			 
+			  
+			  angle_Acce = Math.toDegrees(radians);
+			  
+			   LCD.drawString("Test Acce_Meter", 3, 1);
+	    	   LCD.drawString("Angle:", 0, 2);
+	    	   LCD.drawString(""+angle_Acce, 8, 2);
+	    	   
+	    	   LCD.drawString("x", 0, 3);
+	    	   LCD.drawString(""+sample_Acce[0], 8, 3);
+	          
+	           
+	           LCD.drawString("y", 0, 4);
+	    	   LCD.drawString(""+sample_Acce[1], 8, 4);
+	           
+	           
+	           LCD.drawString("z", 0, 5);
+	    	   LCD.drawString(""+sample_Acce[2], 8, 5);
+	           dl.writeSample(sample_Acce[2]);
+	        }
+	}
+	
+}
+	\end{lstlisting}
+	
+	\subsubsection{The complementary filter source test code}
+	\begin{lstlisting}
+	import lejos.hardware.sensor.HiTechnicAccelerometer;
+import lejos.hardware.sensor.HiTechnicGyro;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.lcd.LCD;
+import lejos.hardware.Button;
+
+
+
+
+public class Comp_Filter {
+	
+
+	static final long h= 10;
+	
+	//For the acce meter
+	static HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer(SensorPort.S1); ;
+	static float sample_Acce[] = new float[3]; 
+	static double angle_Acce;
+	static double radians;
+	
+	static float angle_gyroscope_extra=0;
+	
+	// For the gyroscope
+	static  double angle_Gyro=0;
+	static float angleOffset=0;
+	static HiTechnicGyro gyro =new HiTechnicGyro(SensorPort.S2 ); 
+	static float angle_of_set;
+	static float[] sample = new float[1];
+	static double offset_gyro=0;
+	static double sample_1=0;
+	
+	// For the complementary filter
+	static double comp_filter_angle=0;
+	static double A = 0.95;
+	
+	static float angle_gyro=0;
+	
+	
+	static DataLogger dl_1 = new DataLogger("acce_angle.txt"); 
+	static DataLogger dl_2 = new DataLogger("gyroscope_angle.txt"); 
+	static DataLogger dl_3 = new DataLogger("gyroscope_angle_extra.txt"); 
+	static DataLogger dl_4 = new DataLogger("complementary_filter_angle.txt"); 
+	
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+		
+		//INIT PROGRAM
+		LCD.drawString("Compl_Filter_Program_Test", 0, 0);
+		LCD.drawString("Please push any buttom to begin", 0, 1);
+		Button.waitForAnyPress();
+		LCD.clearDisplay();
+		//INIT PROGRAM ENDS
+
+		// For the filter calculations
+		complementary_filter_calc();
+		//END
+		 LCD.clear();
+	     LCD.drawString("Program stopped", 0, 0);
+	     Thread.sleep(2000);
+			
+	}
+	public static void get_Data_Acce(){
+		
+			  acce_Meter.fetchSample(sample_Acce, 0);
+			  radians = Math.atan( ( sample_Acce[1]/10 ) / (sample_Acce[2]/10 ) );
+			  angle_Acce = Math.toDegrees(radians);
+	 }
+	public static void get_Data_Gyro(){
+		gyro.fetchSample(sample, 0);
+		
+		 sample_1 = sample[0]  - offset_gyro; 
+	}
+	
+	public static void calc_offset_gyro(){
+		
+		LCD.drawString("Calibrate gyro", 0, 0);
+		Button.waitForAnyPress();
+		double temp_offset =0;
+		int count = 100;
+		for(int i =0;i<count ; i++){
+			  gyro.fetchSample(sample, 0);
+			  temp_offset = temp_offset + sample[0];
+			  try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			  }
+		
+		offset_gyro= temp_offset/count;
+		
+	}
+	
+	
+	public static void complementary_filter_calc(){
+		
+			calc_offset_gyro();
+			LCD.clearDisplay();
+			LCD.drawString("calibrate done", 0, 2);
+			LCD.drawString("Programmed started", 0, 5);
+			
+		long t =  System.currentTimeMillis();
+		while (! Button.ESCAPE.isDown()){
+			
+			get_Data_Acce();
+			get_Data_Gyro();
+			angle_gyro  =  angle_gyro + (float) ( (float) sample_1 * 0.01) ;
+			comp_filter_angle = A * (comp_filter_angle + sample_1 * 0.01) + (1-A)*(angle_Acce) ;
+			
+			angle_gyroscope_extra = (float) (comp_filter_angle + sample_1 * 0.01) ;
+	    	dl_1.writeSample((float) angle_Acce);
+	    	dl_2.writeSample((float) angle_gyro);
+	    	
+	    	dl_3.writeSample(angle_gyroscope_extra);
+	    	dl_4.writeSample((float) comp_filter_angle);
+	    	
+	    	t=  t + h ;
+			long duration= t - System.currentTimeMillis();
+			
+			if (duration > 0) {
+				try {
+					Thread.sleep(duration);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		LCD.drawString("Programmed stopped", 0, 3);
+		
+	}
+
+}
+
+	\end{lstlisting}
+	
+\section{Design}
+
+	\subsection{Roll control}
+		\subsubsection{PDI- control}
+		\label{Appendx:PDI_control}
+		\begin{lstlisting}
+%Design av Regulatorn för inertia hjulet
+%Parametrar Standard
+
+%K=34.8082;
+%Ti=42.4085;
+%Td=2.5938;
+
+%Cin = K*(1 + 1/(s*Ti) + Td*s);
+
+
+%Parametrar efter tuning (ingen strning)
+
+% Kt= 34.8082;
+% Tit= 42.4085;
+% Tdt= 2.5938;
+% N=328.9617;
+
+
+%Parametrar efter tuning (strning)
+
+Kt= 59.1186;
+Tit= 72.0271;
+Tdt= 4.4053;
+N=328.9617;
+
+k=145;
+i=1;
+d=16.4
+
+Cin = Kt + Tit*(1/s) + Tdt*(N/(1+N*(1/s)));
+%Cin = k + 1/(s*i)+ s*d;
+		\end{lstlisting}	
+		
+		\subsubsection{The discrete transform}
+		
+		\begin{lstlisting}
+clear all
+close all
+modelinertia
+
+h=0.10;
+q11 = 1/(1.57^2);
+q22 = 1/(0.349^2);
+q33 = 1/(16^2);
+Q = [q11 0 0; 0 q22 0; 0 0 q33];
+R = 1/(0.384^2);
+
+[phi gamma]=c2d(A, B_tau, h)
+
+[L S e]=dlqr(phi, gamma, Q, R)
+		\end{lstlisting}	
+		
+		\subsubsection{The model}
+		
+		\begin{lstlisting}
+%Modell för inverted pendulum (inertia hjulet)
+
+s=tf('s');
+
+%Konstanter
+g= 9.81;
+
+%Parametrar som vi ändrar
+m= 0.771;
+M= 0.636;
+l= 0.21;
+L= 0.41;
+R= 0.15;
+Jp= m*(l^2);
+Jw= (1/2)*M*(R^2);
+
+a= (g/(Jp+Jw+M*(L^2)))*(l*m + L*M);
+b1= 1/(Jp+Jw + M*(L^2));
+b2= 1/Jw;
+ki=1/20;
+
+%Tillst?nd
+%x1: Pendelns vinkel
+%x2: Pendelns vinkelhastighet
+%x3: Motorns vinkel
+%x4: Motorns vinkelhastighet
+
+%Matriser
+A=[0 1 0; a 0 0; 0 0 0];
+B_tau= [0; -b1; b2];
+B_d = [0; 1; 0];
+B= [B_tau B_d]
+Cangle=[1 0 0];
+Call= eye(3);
+D=zeros(3,2);
+
+%Systemet
+C=Call;
+SYSinertia= ss(A,B,C,D);
+Pin = zpk(tf(SYSinertia));
+
+
+% %State feedback (funkar inte)
+% Q=eye(3);
+% R=[1 0; 0 100];
+% lr=1;
+% 
+% [L,S,E] = lqr(SYSinertia,Q,R);
+% 
+% %Systemet med state feedback
+% SYSinertia = ss(A-B*L,B*lr,C,D);
+% PinSF= zpk(tf(SYSinertia))
+
+%State feedback
+q11 = 1/(1.57^2);
+q22 = 1/(0.349^2);
+q33 = 1/(16^2);
+Q = [q11 0 0; 0 q22 0; 0 0 q33];
+R = 1/(0.384^2);
+ang = [1 0 0];
+
+[L,S,E] = lqr(A,B_tau,Q,R)
+PinSF = zpk(tf(ss(A-B_tau*L,B,C,D)));
+
+Asf = A-B_tau*L;
+\end{lstlisting}	
+
+		\subsubsection{Initialize model}
+		\begin{lstlisting}
+clear all
+close all
+
+modelinertia
+Cindesign
+
+x10=0;
+%x10=deg2rad(2);
+x20=0;
+x30=0;
+
+T= minreal(zpk(Cin*PinSF(1,1)/(1+ Cin*PinSF(1,1))))
+
+S= minreal(zpk(1/(1+ Cin*PinSF(1,1))))
+
+pole(T)
+
+
+% %Complementary sensitivity function plots
+% figure(1)
+% nyquist(T)
+% 
+% figure(2)
+% margin(T)
+% 
+% %Sensitivity function plots
+% figure(3)
+% bode(S)
+		\end{lstlisting}	
+		
+
+	
+	
 
 % NEDED FOR THE REFERENCE, PART 2
 % SOURCE;    
