@@ -81,17 +81,23 @@
 \begin{document}
 \maketitle
 
+\clearpage
 \begin{abstract}
-Your abstract.
+The goal of this project was to design a controller that could balance a unicycle in the medial direction, using a ground wheel, and in the lateral direction using an inertia wheel. Due to the complexity of the problem the control of the lateral direction was focused on. The model was determined using Newton's laws and the linearization around the origin was controlled using LQR. Using the program LeJos written in java the controller was implemented. The simulink model was stable but the real process turned out to be unstable. It was unstable because the sensors were not accurate enough and the micro controller was not fast enough for the many nested classes in LeJos. Since the measurements took too long to be received by the micro controller the system could not be stable.
 \end{abstract}
-
+\clearpage
 \tableofcontents
 
 \section{Author's note}
 
+The project has been a great learning experience for us. We have learned about Lagrangian equations, system identification, the physics of a pendulum, desired variables for optimal control and much more. We have dedicated our souls for this project for 6 weeks and have had a lot of fun while doing it. The project was very comprehensive which was challenging and caused much dedication among us to make it work. 
+
+We would like to thank our supervisor Olof Troeng, who helped us with problems when we were stuck, Anders Nilsson who gave us access to a computer where we could download LeJos, Anders Robertsson who also helped by loaning us a book about the inertia wheel, and Sergej Rumjantsev who spent a whole day helping us build the inertia wheel.
+\clearpage
+
 \section{Introduction}
 
-Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started. If you have a question, please use the help menu (``?'') on the top bar to search for help or ask us a question.
+We are designing a unicycle made by lego with an integrated inertia wheel to keep the lateral balance. The project therefore consists of two problems. To stabilize the unicycle in the medial direction by designing a controller for the ground wheel, and to stabilize it in the lateral direction by applying a reaction wheel connected to the top of the unicycle.
 
 \section{Construction}
 
@@ -432,7 +438,47 @@ The second limitation is availability of the connection points on the EV3, there
     
     
     
+    \subsubsection{More details about the prototypes}
     
+    We spent a lot of time to build several different prototypes for multiple reasons and solutions. in the beginning of the project we demonstrated some rough prototype. With regards to some requirements and limitations therefore most of the constructions we tried did not admire our lego unicycle. \\
+    
+    Lets look the first prototype of the project. in the very beginning of the project we designed the prototype which is attached bellow. This was built before we got the reaction wheel. with this prototype the reaction wheel was decided to be connected to the top and front part of the EV3 as seen in the Figure \ref{fig:prototype_1}. 
+    
+    
+  \begin{figure}[h]
+   \center
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.3\textheight]{Prototype_1_a.png}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.3\textheight]{Prototype_1_b.png}}  
+	\caption{Shows the first prototype with and with out the reaction wheel.}
+    \label{fig:prototype_1}
+  \end{figure}
+  
+  We got some  problems due to weight balancing and torque tolerance of the reaction wheel for this design since the reaction wheel weighed more then the lego unicycle, the problem showed up when connected the reaction wheel. the reaction wheel made the unicycle want to fall front and thereafter the reaction wheel torn out  due to the stress caused by the max torque. this was a big problem which we couldn't solve with this prototype. therefore we changed this prototype and started building a new one.
+ According to the previous construction we have some requirements and specifications that our new prototype should be able to fulfill since we couldn't solve all those problems with the previous prototype.
+
+This construction we focused on building a prototype which folds the reaction wheel backwards to enable the reaction wheel tolerate the stress and not torn out.since the EV3 weighs more as well, we have decided to build the prototype as shown in figure \ref{fig:prototype_2}. to compensate the weight of the reaction wheel connecting to the top and front of the unicycle.
+
+\begin{figure}[h]
+        \center
+	 \includegraphics[width=0.3\textwidth,height=0.3\textheight]{IMG-20141215-WA0000__1_.jpg}
+	\caption{Prototype 2}
+    \label{fig:prototype_2}
+    \end{figure}
+
+The result of the lately construction didn't give much better solution. the construction couldn't handle the stress due to the reaction wheel, furthermore the motor which is connected to the reaction wheel torn out, the weight balancing problem was not solved as expected either. therefore we once more decided to build another prototype which will achieve our requirements.
+
+Since the last two construction failed on our requirements therefore we have tried another approach to solve those issues. this time we got to rebuild both the reaction wheel and the prototype. we designed reaction wheel with two motors connecting from both sides as seen in figure \ref{fig:prototype_3}.
+To connect this time the reaction wheel above the EV3 and between two motors connecting from both sides and holding to prevent the reaction wheel to dismantle. 
+
+ \begin{figure}[h]
+   \center
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.3\textheight]{Prototype_3_a.jpg}} 
+	\subfloat[]{\includegraphics[width=0.3\textwidth,height=0.3\textheight]{Prototype_3_b.jpg}}  
+	\caption{Shows the third prototype with and with out the reaction wheel.}
+	\label{fig:prototype_3}
+  \end{figure}
+  
+  This final construction coped with all the requirements that is to say this design handled the stress accurately and prevented the reaction wheel to dismantle.
     
     
     
@@ -442,11 +488,169 @@ The second limitation is availability of the connection points on the EV3, there
 \section{Modeling}
 \label{sec:Modeling}
 	\subsection{Lateral Balance}
-		\subsubsection{Mathematical model}
-        \subsubsection{Simulink model}
-    \subsection{Medial Balance}
-		\subsubsection{Mathematical model}
-        \subsubsection{Simulink model}
+	
+	We realized early in the project that controlling the inertia wheel is the most complicated part of the project. The complexity comes from several areas. The sensors have to be very accurate (which they are not), the simulation in simulink had to take account of the relationship between torque and the speed of the wheel among other things, we had to design a working controller.
+
+The unicycle is similar to an inverted pendulum with a point mass in the center of mass, with an additional mass that is the inertia wheel, seen in figure 17. We modeled the pendulum as can be seen in (1). The relevant states from the model are the angle of the pendulum, the the angular velocity of the pendulum and the angular velocity of the inertia wheel. The angular position of the inertia wheel is not important as only the change in angular position affects the torque. Torque is the momentum you get when a vector force is acted on the wheel with a certain radius. The torque acting on the pendulum due to gravity (which makes it fall) must be less that the torque from the inertia wheel (which we can control) for it to be stable. The reaction torque is therefore dependent on the radius of the wheel. The maximum torque of the engine is also limited, so some angles are impossible for the reaction wheel to stabilize.
+
+
+\begin{figure} [h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Inverted_pedulum_2}
+	\caption{Shows the sketch of the inverted pendulum}
+	\label{fig:sketch_inverted_pendulum}
+\end{figure}
+
+\newpage	
+	
+		\subsubsection*{Mathematical model}
+		
+The principle idea of this control problem is to receive a reaction torque from the inertia wheel that is larger than the torque exerted on the unicycle from gravity. Looking at figure 17 we see the forces acting on the unicycle as it 	falls. If we assume that all the mass of the body exists in one point, the center of mass, the model of the process can be calculated using Newtons laws. The use of Newtons laws was chosen instead of the Lagrangian equations because it would give an adequately accurate model while still being easier to determine. 
+
+The angular acceleration of the body will equal the net torque acted on the center of mass and the center of the inertia wheel due to gravity, and the reaction torque opposing the other two. The reaction torque is caused by the angular acceleration of the inertia wheel. Controlling the reaction torque in such a way that will keep 	          $ \frac{\partial^2 \theta_{b} }{\partial t^2}  = 0 $ and $\theta_{b}=0$ will make the system stable. It was estimated that the friction from the EV3 motor would we small and it was neglected from the equations.
+
+		
+		\begin{equation}
+		\begin{aligned}
+	     	 (J_{w}+ML^2 + J_{b} ) \frac{\partial^2 \theta_{b} }{\partial t^2}  &= l_{1} \sin{\theta_{b}} m g + L \sin{\theta_{b}} M g - \tau    \\  
+		 J_{w} \frac{\partial^2 \theta_{w}} {\partial t^2} &= \tau
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+				
+Where $\theta_{b}$ is the angle of the body, $\theta_{w}$ is the angle of the inertia wheel, $J_(b)$ and $J_(w)$ is the moment of inertia of the body and the wheel, $m$ is the mass of the body without the wheel, $M$ is the mass of the wheel, $g$ is the gravitational constant, $l_{1}$ is the length from the pivot point to the center of mass, $L$ is the length of the pivot point to the center of the wheel and $\tau$ is the reaction torque.
+
+As stated before the interesting states are the angle of the body, the angular speed of the body and the angular speed of the wheel. The model in (1) can be linearized around the origin where $\theta_{b}=0$. When the angle of the body is close to zero $sin(\theta_{b})\approx\theta_{b}$. Since the angle of the body will mainly be close to zero with the right controller the approximation will serve for the model. The new model and state space representation linearized around the origin will be:
+
+		\begin{equation}
+		\begin{aligned}
+	     	 (J_{w}+ML^2 + J_{b} ) \frac{\partial^2 \theta_{b} }{\partial t^2}  &= l_{1} \theta_{b} m g + L \theta_{b} M g - \tau    \\  
+		 J_{w} \frac{\partial^2 \theta_{w}} {\partial t^2} &= \tau
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+$x_{1}$: Angle of the body \\
+$x_{2}$: Angular velocity of the body\\
+$x_{2}$: Angular velocity of the inertia wheel\\
+
+		\begin{equation}
+		\begin{aligned}
+		\dot{x_{1}} = x_{2}\\
+		\dot{x_{2}} = \frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM)x_{1} - \frac {1}{(J_{w}+ML^2 + J_{b} )} \tau \\
+		\dot{x_{1}} = \frac {1}{J_{w}} \tau\\
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+
+
+
+$A =  \begin{bmatrix} 
+0 & 1 & 0 \\
+\frac{g }{(J_{w}+ML^2 + J_{b} )}(l_{1}m + LM) & 0& 0 \\
+0 & 0 & 0 
+ \end{bmatrix}$
+ 
+ $B =  \begin{bmatrix} 
+0 \\
+-\frac {1}{J_{w}} \\
+\frac {1}{J_{w}}
+ \end{bmatrix}$
+ 
+  $C =  \begin{bmatrix} 
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+ \end{bmatrix}$
+ 
+ $D=0$
+ 
+ 
+ 
+ \subsubsection*{Controller and Simulink}
+ 
+ \begin{figure} [h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{SimulinkInertia.png}
+	\caption{The simulink model}
+	\label{fig:sketch_inverted_pendulum}
+\end{figure}
+ 
+ When creating the simulink model we had to take some physical limitations into account. First, the torque exerted by the motor will not always equal its reference value. The reason being that the torque will decrease as the angular speed of the wheel increases according to the formula:
+ 
+ 
+ 		\begin{equation}
+		\begin{aligned}
+\tau_{real} = \tau_{ref}(1-k\dot{\theta_{w}})
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+ 
+The maximum torque that can be exerted by the motor is also limited. It was determined that $\tau_{max}=0.384$. Using two motors the max torque is therefore $\tau_{max2}=0.768$. There was also a disturbance that had to be taken into account. The disturbance can be seen as a separate input to the process, as an acceleration exerted on the body.
+
+  $B_{dist} =  \begin{bmatrix} 
+0\\
+1\\
+0\\
+ \end{bmatrix}$
+  
+ Two controllers were tested for the model. A PID controller and an optimal controller determined through the LQG method. The advantage with the PID controller was that its parameters could be tuned using a block in simulink called "PID Tuner". A stable closed loop system was achieved with the controller:
+ 
+ 
+
+ 		\begin{equation}
+		\begin{aligned}
+C= P + \frac{I}{s} + D\frac{N}{1+N\frac{1}{s}}
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+\newpage
+
+$P=73$\\
+$I=65$\\
+$D=7.5$\\
+$N=238$\\
+
+The controller is, however, not stable. The angular velocity of the inertia wheel will continue to increase until it reaches it's maximum value, then the unicycle will fall.
+An optimal controller was needed to stabilize the system. To optimize the controller we implemented a linear quadratic regulator which minimizes the cost function, seen in (6). The Q matrix determines how much each state will be penalized. Since we want to keep cost function (J) small a large Q will require that the states are small. Q=[q1 0 0; 0 q2 0; 0 0 q3]. The cost function we needed to minimize was:
+
+\begin{equation}
+		\begin{aligned}
+	     	 E(x^TQx + u^TRu)
+		\end{aligned}
+	 	\label{equ:inverted_pendulum}  
+\end{equation}
+
+We set the weight matrices to the values:
+
+\begin{itemize}
+
+\item[] q1 = 1/1.57
+\item[] q2 = 1/0.349
+\item[] q3 = 1/16
+\item[] R = 1/0.348
+
+\end{itemize}
+
+Which gives:
+
+$L= [-32.4 -5.1 -0.22]$
+
+
+These values come from the bounds of the states. The pendulum angle has a range of -1.57 to 1.57 radians (-90 to 90 degrees). We estimated that the maximum speed of the pendulum from free fall is 0.349 rad/s (about 20 degrees per second). The maximum angular velocity of the reaction wheel was determined to be 16 rad/s. Max torque is 0.348 Nm.
+These values are used to normalize each product of the cost function so they are approximately equal. These values can be tuned to better performance with the real process.
+With this controller the system became stable up to initial values of 2 degrees, or a disturbance of 1 Nm.
+
+\begin{figure} [h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{plottttttt.png}
+	\caption{The system when the disturbance is 1 Nm}
+	\label{fig:sketch_inverted_pendulum}
+\end{figure}
+
+
         
 \section{Implementation}
 	\subsection{Programs}
@@ -471,9 +675,10 @@ The second limitation is availability of the connection points on the EV3, there
 	\end{table}
     
 \section{Results}
+\label{sec:results}
 %RESULTS
 
-The results of the project can bee seen in figures \ref{fig:plot_comp_filter_control_signal_19_Dec}, \ref{fig:plot_comp_filter_control_signal_3_Jan}, \ref{fig:plot_parallel_threads_two_sensors} and \ref{fig:plot_parallel_threads_IMU}. The figure \ref{fig:plot_comp_filter_control_signal_19_Dec} shows the first control signal that were sampled and the figure \ref{fig:plot_comp_filter_control_signal_3_Jan} shows the last one to be sampled with improvments. However the figures \ref{fig:plot_parallel_threads_two_sensors} and \ref{ig:plot_parallel_threads_IMU} was the results with the improvements by using paralled threads. As can be seen there where was 
+The results of the project can bee seen in figures \ref{fig:plot_comp_filter_control_signal_19_Dec}, \ref{fig:plot_comp_filter_control_signal_3_Jan}, \ref{fig:plot_parallel_threads_two_sensors} and \ref{fig:plot_parallel_threads_IMU}. The figure \ref{fig:plot_comp_filter_control_signal_19_Dec} shows the first control signal that were sampled and the figure \ref{fig:plot_comp_filter_control_signal_3_Jan} shows the last one to be sampled with improvments. However the figures \ref{fig:plot_parallel_threads_two_sensors} and \ref{ig:plot_parallel_threads_IMU} was the results with the improvements by using paralled threads. As can be seen there where was no improvement in the u
 
   \begin{figure}[h]
 		%\centering
@@ -519,11 +724,12 @@ The results of the project can bee seen in figures \ref{fig:plot_comp_filter_con
 
 
 
+\clearpage
+\section{Conclusion}
+In this section we will briefly go through some conclusions we draw from this project. First one being the Lejos main program is to slow for this kind of processes because of the many programs being nested. Java is not recommended for this kind of processes in general. Another problem we encountered was that the microprocessor was to slow due to slow reactions times in the program that uses parallel threads. A remark is also that then we used the IMU sensor it was to slow which was not expected. Further we can also se in the plots under section\ref{sec:results} that the engines are not being as strong as they should be due to the saturation due the power control. Because the control signal should according to the simulation be bounded by -0.42 to 0.42 but in reality we see that the control signal goes outside that region almost immediately. Lastly we can bring up that we did not have time to do the medial balance control due to many limitations of the hardware and the software.
 
-\section{Discussion and Conclusion}
 
-
-
+\clearpage
 \appendix
 
 \section{Lejos Source Code}

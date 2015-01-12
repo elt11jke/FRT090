@@ -1,40 +1,36 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Author's note}{2}{section.1}
-\contentsline {section}{\numberline {2}Introduction}{2}{section.2}
-\contentsline {section}{\numberline {3}Construction}{2}{section.3}
-\contentsline {subsection}{\numberline {3.1}Ev3}{2}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Sensors}{2}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}HighTechinic Gyro Sensor}{2}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}HighTechinic Accelerometer Sensor}{4}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}AbsoluteIMU-ACG}{5}{subsubsection.3.2.3}
-\contentsline {subsection}{\numberline {3.3}Reaction wheel}{7}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Attachment between the reaction wheel and EV3 Large Motor }{8}{subsubsection.3.3.1}
-\contentsline {subsection}{\numberline {3.4}Motors}{9}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}EV3 Large Servo Motor}{9}{subsubsection.3.4.1}
-\contentsline {subsection}{\numberline {3.5}Prototypes}{11}{subsection.3.5}
-\contentsline {section}{\numberline {4}Modeling}{13}{section.4}
-\contentsline {subsection}{\numberline {4.1}Lateral Balance}{13}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Mathematical model}{13}{subsubsection.4.1.1}
-\contentsline {subsubsection}{\numberline {4.1.2}Simulink model}{13}{subsubsection.4.1.2}
-\contentsline {subsection}{\numberline {4.2}Medial Balance}{13}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Mathematical model}{13}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Simulink model}{13}{subsubsection.4.2.2}
-\contentsline {section}{\numberline {5}Implementation}{13}{section.5}
-\contentsline {subsection}{\numberline {5.1}Programs}{13}{subsection.5.1}
-\contentsline {section}{\numberline {6}Results}{15}{section.6}
-\contentsline {section}{\numberline {7}Discussion and Conclusion}{15}{section.7}
-\contentsline {section}{\numberline {A}Lejos Source Code}{15}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}The main source code}{15}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}DataLogger}{26}{subsection.A.2}
-\contentsline {subsubsection}{\numberline {A.2.1}DataLogger Orginal}{26}{subsubsection.A.2.1}
-\contentsline {subsubsection}{\numberline {A.2.2}DataLogger Modified}{28}{subsubsection.A.2.2}
-\contentsline {subsection}{\numberline {A.3}The sensor source test codes}{31}{subsection.A.3}
-\contentsline {subsubsection}{\numberline {A.3.1}The gyroscope source test code}{31}{subsubsection.A.3.1}
-\contentsline {subsubsection}{\numberline {A.3.2}The accelerometer test source code}{32}{subsubsection.A.3.2}
-\contentsline {subsubsection}{\numberline {A.3.3}The complementary filter source test code}{34}{subsubsection.A.3.3}
-\contentsline {section}{\numberline {B}Design}{36}{appendix.B}
-\contentsline {subsection}{\numberline {B.1}Roll control}{36}{subsection.B.1}
-\contentsline {subsubsection}{\numberline {B.1.1}PDI- control}{36}{subsubsection.B.1.1}
-\contentsline {subsubsection}{\numberline {B.1.2}The discrete transform}{37}{subsubsection.B.1.2}
-\contentsline {subsubsection}{\numberline {B.1.3}The model}{37}{subsubsection.B.1.3}
-\contentsline {subsubsection}{\numberline {B.1.4}Initialize model}{39}{subsubsection.B.1.4}
+\contentsline {section}{\numberline {1}Author's note}{4}{section.1}
+\contentsline {section}{\numberline {2}Introduction}{5}{section.2}
+\contentsline {section}{\numberline {3}Construction}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Ev3}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Sensors}{6}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}HighTechinic Gyro Sensor}{6}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}HighTechinic Accelerometer Sensor}{7}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}AbsoluteIMU-ACG}{8}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Reaction wheel}{10}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Attachment between the reaction wheel and EV3 Large Motor }{11}{subsubsection.3.3.1}
+\contentsline {subsection}{\numberline {3.4}Motors}{12}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}EV3 Large Servo Motor}{12}{subsubsection.3.4.1}
+\contentsline {subsection}{\numberline {3.5}Prototypes}{14}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}More details about the prototypes}{15}{subsubsection.3.5.1}
+\contentsline {section}{\numberline {4}Modeling}{18}{section.4}
+\contentsline {subsection}{\numberline {4.1}Lateral Balance}{18}{subsection.4.1}
+\contentsline {section}{\numberline {5}Implementation}{24}{section.5}
+\contentsline {subsection}{\numberline {5.1}Programs}{24}{subsection.5.1}
+\contentsline {section}{\numberline {6}Results}{24}{section.6}
+\contentsline {section}{\numberline {7}Discussion and Conclusion}{29}{section.7}
+\contentsline {section}{\numberline {A}Lejos Source Code}{30}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}The main source code}{30}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}DataLogger}{37}{subsection.A.2}
+\contentsline {subsubsection}{\numberline {A.2.1}DataLogger Orginal}{37}{subsubsection.A.2.1}
+\contentsline {subsubsection}{\numberline {A.2.2}DataLogger Modified}{39}{subsubsection.A.2.2}
+\contentsline {subsection}{\numberline {A.3}The sensor source test codes}{42}{subsection.A.3}
+\contentsline {subsubsection}{\numberline {A.3.1}The gyroscope source test code}{42}{subsubsection.A.3.1}
+\contentsline {subsubsection}{\numberline {A.3.2}The accelerometer test source code}{44}{subsubsection.A.3.2}
+\contentsline {subsubsection}{\numberline {A.3.3}The complementary filter source test code}{45}{subsubsection.A.3.3}
+\contentsline {section}{\numberline {B}Design}{48}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}Roll control}{48}{subsection.B.1}
+\contentsline {subsubsection}{\numberline {B.1.1}PDI- control}{48}{subsubsection.B.1.1}
+\contentsline {subsubsection}{\numberline {B.1.2}The discrete transform}{49}{subsubsection.B.1.2}
+\contentsline {subsubsection}{\numberline {B.1.3}The model}{49}{subsubsection.B.1.3}
+\contentsline {subsubsection}{\numberline {B.1.4}Initialize model}{50}{subsubsection.B.1.4}
