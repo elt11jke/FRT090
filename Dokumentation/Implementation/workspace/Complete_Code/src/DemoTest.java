@@ -10,7 +10,7 @@ import lejos.hardware.Button;
 public class DemoTest {
 
 
-		static final long h= 10;
+		static final long h= 50;
 	    // sleep can only take in long which is bounded, greater than zero
 		//static final long h = 5;
 		
@@ -24,10 +24,20 @@ public class DemoTest {
 		static final double phi43 = 0.1;
 		static final double phi44 = 1;
 		
-		static final double gamma1 = -0.0346;
-		static final double gamma2 = -0.7073;
-		static final double gamma3 = 13.9762;
-		static final double gamma4 = 0.6988;
+		static double gamma1 = -0.0346;
+		static double gamma2 = -0.7073;
+		static double gamma3 = 13.9762;
+		static double gamma4 = 0.6988;
+		
+		static final double gamma11 = -0.0346;
+		static final double gamma12 = -0.7073;
+		static final double gamma13 = 13.9762;
+		static final double gamma14 = 0.6988;
+		
+		static final double gamma21 = -0.1708;
+		static final double gamma22 = -3.4947;
+		static final double gamma23 = 0;
+		static final double gamma24 = 0;
 
 		static final double l1 = -15.2447;
 		static final double l2 = -2.8808;
@@ -149,6 +159,8 @@ public class DemoTest {
 		
 			 double radians_Wheel = m1.getTachoCount() *  ((Math.PI)/180);
 			 
+			 
+			 
 		     m1.resetTachoCount();
 			 
 			 double t1 = System.currentTimeMillis();
@@ -160,7 +172,6 @@ public class DemoTest {
 			//////////////compute control laws/////////////
 			////////////////////////////////////////////////
 
-			  //if((x1Old<0.03 & x1Old>0) | (x1Old>-0.03 & x1Old<0)){
 
 			u = -1*( (l1 * x1Old) +( l2 * x2Old) +( l3 * x3Old)+(l4 * x4Old) ) ;
 
@@ -199,6 +210,19 @@ public class DemoTest {
 			
 			//PreCalculate the next States
 			
+			
+			if((x1Old<0.05 & x1Old>0) | (x1Old>-0.05 & x1Old<0)){
+				gamma1=gamma21;
+				gamma2=gamma22;
+				gamma3=gamma23;
+				gamma4=gamma24;
+			} else{
+				gamma1=gamma11;
+				gamma2=gamma12;
+				gamma3=gamma13;
+				gamma4=gamma14;
+			}
+			
 			x1 = phi11*x1Old+ phi12*x2Old + gamma1*(u);
 			x2 = phi21*x1Old+ phi22*x2Old + gamma2*(u);
 			x3 = phi33*x3Old+ gamma3*(u);
@@ -225,7 +249,7 @@ public class DemoTest {
 			}
 			
 			dl.writeSample(1);
-
+			
 			}
 			//END
 		     m1.close();

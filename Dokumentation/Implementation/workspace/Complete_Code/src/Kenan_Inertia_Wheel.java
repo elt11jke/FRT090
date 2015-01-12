@@ -1,34 +1,39 @@
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lejos.hardware.sensor.HiTechnicAccelerometer;
 import lejos.hardware.sensor.HiTechnicGyro;
+import lejos.hardware.sensor.MindsensorsAccelerometer;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.NXTMotor;
 import lejos.hardware.Button;
+import lejos.robotics.SampleProvider;
 
 public class Kenan_Inertia_Wheel {
 
 
-		static final long h= 10;
+		static final long h= 30;
 	    // sleep can only take in long which is bounded, greater than zero
 		//static final long h = 5;
 		
-		private static final float Ku = 0.0042f;
+		private static final float Ku = 0.0042f*((1/0.3f));
 		
-		static final float phi11 = 1.0061f;
-		static final float phi12 = 0.0100f;
-		static final float phi21 = 1.2220f;
-		static final float phi22 = 1.0061f;
+		static final float phi11 = 1.0192f;
+		static final float phi12 = 0.0302f;
+		static final float phi21 = 1.2844f;
+		static final float phi22 = 1.0192f;
 		static final float phi33 = 1f;
 		
-		static final float gamma1 = -0.0003f;
-		static final float gamma2 = -0.0677f;
-		static final float gamma3 = 1.3976f;
+		static final float gamma1 = -0.0112f;
+		static final float gamma2 = -0.7507f;
+		static final float gamma3 = 7.8431f;
 
-		static final float l1 = -47.4379f;
-		static final float l2 = -4.4343f;
-		static final float l3 = -0.0240f;
+		static final float l1 = -13.7278f;
+		static final float l2 = -2.1648f;
+		static final float l3 = -0.0750f;
 		
 		      
 		
@@ -48,9 +53,10 @@ public class Kenan_Inertia_Wheel {
 		static float x3Old = 0.0f;
 	
 		//For the acce meter
-		static HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer(SensorPort.S1); ;
+		static MindsensorsAccelerometer accelerationSensor = new MindsensorsAccelerometer(SensorPort.S1);
+		
 		static float[] sample_Acce = new float[3]; 
-		static double angle_Acce;
+		static double rad_Acce;
 		static double radians;
 		
 		// For the gyroscope
@@ -60,6 +66,7 @@ public class Kenan_Inertia_Wheel {
 		static float angle_of_set;
 		static float[] sample = new float[1];
 		static float offset_gyro=0f;
+		static float offset_acce=0f;
 		static float sample_1=0f;
 		
 		// For the complementary filter
@@ -69,6 +76,34 @@ public class Kenan_Inertia_Wheel {
 		
 		//Wheel Speed
 		static float speed_W=0;
+		
+		static long time;
+		static long tAfterLogWrite;
+		static long[] data;
+		
+		static List<Integer> listGlobalTime = new ArrayList<Integer>();
+		static List<Integer> listTimeAcce = new ArrayList<Integer>();
+		static List<Integer> listTimeGyro = new ArrayList<Integer>();
+		static List<Integer> listTimeComp = new ArrayList<Integer>();
+		static List<Integer> listPrecStates = new ArrayList<Integer>();
+		static List<Integer> list_gyro_angle = new ArrayList<Integer>();
+		static List<Integer> list_Power = new ArrayList<Integer>();
+		
+		
+		
+		// The values of acce_sample, gyro_sample, control signal, compl_filter, offset
+		static List<Integer> listAcce = new ArrayList<Integer>();
+		static List<Integer> listGyro = new ArrayList<Integer>();
+		static List<Integer> listControl = new ArrayList<Integer>();
+		static List<Integer> listComp = new ArrayList<Integer>();
+		static List<Integer> listWheel = new ArrayList<Integer>();
+		
+		// The values of the offset
+		
+		static List<Integer> listoffset = new ArrayList<Integer>();
+		static List<Integer> listoffset_acce = new ArrayList<Integer>();
+		
+		
 		
 		
 		
@@ -81,6 +116,7 @@ public class Kenan_Inertia_Wheel {
 			Button.waitForAnyPress();
 			
 			calc_offset_gyro();
+			calc_offset_acce();
 			
 			LCD.clearDisplay();
 			
@@ -90,65 +126,96 @@ public class Kenan_Inertia_Wheel {
 			
 			LCD.clearDisplay();
 			
-			NXTMotor m1 = new NXTMotor(MotorPort.A);
-				
+			NXTMotor m1 = new NXTMotor(MotorPort.A);		
 		    NXTMotor m2 = new NXTMotor(MotorPort.B);
 		    
-		    long t = System.currentTimeMillis();
-			
 			count=0;
 			
 			//INIT PROGRAM 
 			DataLogger dl = new DataLogger("sample.txt"); 
-		while(Button.ESCAPE.isUp()){
-			dl.writeSample(1);
-			// The current angle
+			
+			SampleProvider accelerationProvider= accelerationSensor.getAccelerationMode();
+			
+			float[] sample = new float[accelerationProvider.sampleSize()];
 
-//			LCD.drawString(""+comp_filter_angle, 0, 6);
+			long t = System.currentTimeMillis();
+			
+			long t_before;
+			
+		while(Button.ESCAPE.isUp()){
+			
+			time = System.currentTimeMillis();
+		
+	
 
 			/////////////////////////////////////////////////
 			////////compute angles///////////////////////////
 			/////from the complementary filters/////////////
 			///////////////////////////////////////////////
 			
-			acce_Meter.fetchSample(sample_Acce, 0);
-			  radians = Math.atan( ( sample_Acce[1]/10 ) / (sample_Acce[2]/10 ) );
-			  angle_Acce = Math.toDegrees(radians);
-
-			  gyro.fetchSample(sample, 0);
-				 sample_1 = sample[0]  - offset_gyro; 
-
-			comp_filter_angle = (float) (A * (comp_filter_angle + sample_1 * 0.005) + (1-A)*(angle_Acce)) ;
-
 			
+			 t_before = System.currentTimeMillis();
+			
+			   
+			 accelerationProvider.fetchSample(sample, 0);
+				
+			  rad_Acce =  (sample[1]/9.81)- offset_acce ;
+			  listAcce.add( (int) (sample[1] * 1000f)  ) ;  // TODO Needs to be converted back in the plot script
+			  //double rad_Acce = Math.toRadians(angle_Acce);
+			  //long timeAccel = System.currentTimeMillis() - t_before;
+			  
+			  
+			  
+			  // The gyro time
+			 // t_before = System.currentTimeMillis();
+			  gyro.fetchSample(sample, 0);
+		      sample_1 = sample[0]  - offset_gyro; 
+		      double rad_gyro = Math.toRadians(sample_1);
+		      
+		      listGyro.add((int) ( sample_1*(1000f) ) );   	// TODO Needs to be converted back in the plot script
+		      
+		      
+		      //long timeGyro =System.currentTimeMillis()-t_before ;
+		      
+			
+		      
+		      // The complementary filter
+		      //t_before = System.currentTimeMillis();
+			  comp_filter_angle = (float) (A * (comp_filter_angle + rad_gyro * 0.04) + (1-A)*(rad_Acce)) ;
+			  listComp.add((int)  (   comp_filter_angle * (1000f)) ); // TODO Needs to be converted back in the plot script
+	
 			x1Old= comp_filter_angle; //==> from the complementary filters which is comp_filter_angle///// 
 			
 			x2Old = sample_1; //==> rate from the gyro - offset = sample_1 /////
-	
+			
+			
+			//LCD.drawString("Angle", 0, 0);
+			//LCD.drawString("Ang vel", 1, 0);
+			
+			
+		
 			/////////////////////////////////////////////////////////
 			///////Calculations of the wheel speed/////////////////
 			/////////////////////////////////////////////////////
-		
-			 float radians_Wheel = (float) (m1.getTachoCount() *  ((Math.PI)/180));
-			 m1.resetTachoCount();
-			 
-			  x3Old = (float) (radians_Wheel/(h*0.001)); // ==> speed of the wheel in radians /sec ==> x3Old
 			
+			 t_before = System.currentTimeMillis();
+			 float radians_Wheel = (float) (m1.getTachoCount() *  ((Math.PI)/180));
+			 //m1.resetTachoCount();
+			 long time_wheel = System.currentTimeMillis()- t_before;
+			  x3Old = (float) (radians_Wheel/(0.04)); // ==> speed of the wheel in radians /sec ==> x3Old
+			listWheel.add((int)(x3Old));
 			/////////////////////////////////////////////////
 			//////////////compute control laws/////////////
 			////////////////////////////////////////////////
-
+			  
 		     u = -1*( (l1 * x1Old) +( l2 * x2Old) +( l3 * x3Old) ) ;
-			
-			
-//			LCD.drawString("tau "+u, 0, 5);
-			
-			//LCD.drawString(""+x1Old, 0, 1);
-			//LCD.drawString(""+x2Old, 0, 2);
-			//LCD.drawString(""+x3Old, 0, 3);
+		     listControl.add((int) ( u* (1000f)  ) ); // TODO Needs to be converted back in the plot script
+		
 			
 			power = (int) ( (u) / Ku) ;
-
+			list_Power.add(power);
+			power =0;
+			
 			if(power>100){
 				power= 100;
 			}
@@ -157,17 +224,19 @@ public class Kenan_Inertia_Wheel {
 
 				power= -100;
 			}
-			//LCD.drawInt(power, 0, 5);
+			 // LCD.drawString(Integer.toString(m1.getTachoCount()), 0, 0);
+				
+			
+			 t_before = System.currentTimeMillis();
 			 m1.setPower(power);
 			 m2.setPower(power);
+			
 
-			m1.forward();
-			m2.backward();	
-
-        //	LCD.clear(4);	
-		//  LCD.drawString(""+power, 0, 4);
-		    
-		//	m1.resetTachoCount();
+			m2.backward();
+			m1.backward();	
+			long set_power_time =System.currentTimeMillis();
+			
+      
 	
 			//PreCalculate the next States
 			
@@ -178,8 +247,12 @@ public class Kenan_Inertia_Wheel {
 			x1Old=x1;
 			x2Old=x2;
 			x3Old=x3;
+			long prec_states_time = System.currentTimeMillis()- set_power_time ;
 			
-			//LCD.clearDisplay();
+			
+            list_gyro_angle.add((int) (comp_filter_angle*(1000f)) );  // TODO Needs to be converted back in the plot script
+			
+		
 
 			t=  t + h ;
 			long duration= t - System.currentTimeMillis();
@@ -192,16 +265,82 @@ public class Kenan_Inertia_Wheel {
 				}
 			}
 			
+			
+			
+			
+			long time2 = System.currentTimeMillis() - time ;
+			
+			
+			listGlobalTime.add((int)time2);
+			
+			
+			
+			//listTimeGyro.add((int)timeGyro);
+			
+		//	listTimeComp.add((int)timeComp);
+			
+	//		listPrecStates.add((int)prec_states_time);
+			
+			
+			
+			//Button.waitForAnyPress();
 			}
-			//END
+		
+			m1.setPower(0);
+			m2.setPower(0);
+		
+		   for(int a = 0; a < listGlobalTime.size()  ; a++){
+			   
+		    dl.writeSingleSample(listGlobalTime.get(a));
+		    //dl.writeSingleSample(list_gyro_angle.get(a));
+		     //dl.writeSingleSample(listTimeAcce.get(a));
+		    //dl.writeSingleSample(listTimeGyro.get(a));
+		    //dl.writeSingleSample(listTimeComp.get(a));
+		    //dl.writeSingleSample(listPrecStates.get(a));
+		    dl.writeSingleSample(listAcce.get(a));
+		    dl.writeSingleSample(listGyro.get(a));
+		    dl.writeSingleSample(listControl.get(a));
+		    dl.writeSingleSample(listComp.get(a));
+		    dl.writeSingleSample(list_Power.get(a));
+		     //dl.writeSingleSample(listWheel.get(a));
+		     
+		     if(listoffset.size() > a  ){
+		    	 dl.writeSingleSample(listoffset.get(a));
+		    	
+		    	 
+		     }else{
+		    	 dl.writeSingleSample(0);
+		    	
+		     }
+		     
+		     if(listoffset_acce.size() > a  ){
+		    	
+		    	 dl.writeSingleSample(listoffset_acce.get(a));
+		    	 
+		     }else{
+		    	 dl.writeSingleSample(0);
+		    	 
+		     }
+		    
+		    //dl.newLine();
+		    
+		   //}
+		   
+		   // write the offset in the end
+		   dl.newLine();
+		   }
+		   dl.newLine();
+		   dl.writeSingleSample((int) (offset_gyro*(1000f))  );		// TODO Needs to be converted back in the plot script
+		   dl.newLine();
+		   dl.writeSingleSample((int) (offset_acce*(1000f))  );
+		   //END
 		    m1.stop();
 		    m2.stop();
 		    m1.close();
 		    m2.close();
 			LCD.clear();
 		    LCD.drawString("Program stopped", 0, 0);
-		     
-				
+		 
 		}
 	
 		
@@ -213,6 +352,7 @@ public class Kenan_Inertia_Wheel {
 			int count = 100;
 			for(int i =0;i<count ; i++){
 				  gyro.fetchSample(sample, 0);
+				  listoffset.add((int) (sample[0] *(1000f) ) ); // TODO Needs to be converted back in the plot script
 				  temp_offset = temp_offset + sample[0];
 				  try {
 					Thread.sleep(5);
@@ -225,9 +365,29 @@ public class Kenan_Inertia_Wheel {
 			
 		}
 		
-	
-		
-
+public static void calc_offset_acce(){
+			
+			
+			//float[] sample_acce =  new float[3]; 
+			SampleProvider accelerationProvider= accelerationSensor.getAccelerationMode();
+			float[] sample_acce = new float[accelerationProvider.sampleSize()];
+			float temp_offset = 0;
+			int count = 100;
+			for(int i =0;i<count ; i++){
+				  accelerationProvider.fetchSample(sample_acce, 0);
+				  temp_offset = temp_offset + sample_acce[1];
+				  int sample_acce_temp_write=(int) (sample_acce[1] * 1000f);
+				  listoffset_acce.add( (sample_acce_temp_write) ); // TODO Needs to be converted back in the plot script
+				  LCD.drawString(Float.toString(temp_offset), 0, 0);
+				  try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				  }
+			offset_acce = temp_offset/count;
+			
+		}
 	}
 
 	

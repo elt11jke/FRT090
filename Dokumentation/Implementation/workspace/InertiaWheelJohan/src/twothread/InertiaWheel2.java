@@ -5,8 +5,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.NXTMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.HiTechnicAccelerometer;
-import lejos.hardware.sensor.HiTechnicGyro;
+import lejos.hardware.sensor.MindsensorsAbsoluteIMU;
 
 public class InertiaWheel2 implements Runnable {
 
@@ -41,7 +40,11 @@ public class InertiaWheel2 implements Runnable {
 	static double x3Old = 0.0;
 
 	//For the acce meter
-	static HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer(SensorPort.S1); ;
+	//static HiTechnicAccelerometer acce_Meter = new HiTechnicAccelerometer(SensorPort.S1);
+	
+	
+	static MindsensorAbsoluteIMU acce_Meter = new MindsensorAbsoluteIMU(SensorPort.S1);
+	
 	static float[] sample_Acce = new float[3]; 
 	static double angle_Acce;
 	static double radians;
@@ -49,7 +52,6 @@ public class InertiaWheel2 implements Runnable {
 	// For the gyroscope
 	static  double angle_Gyro=0;
 	static double angleOffset=0;
-	static HiTechnicGyro gyro =new HiTechnicGyro(SensorPort.S2 ); 
 	static double angle_of_set;
 	static float[] sample = new float[1];
 	static double offset_gyro=0;
@@ -112,7 +114,7 @@ public class InertiaWheel2 implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		if(b){
-			complementary_filter_calc();
+			acce_Calc();
 		} else {
 			try {
 				power_calc();
@@ -123,7 +125,7 @@ public class InertiaWheel2 implements Runnable {
 		}
 	}
 
-	public static void complementary_filter_calc(){
+	public static void acce_Calc(){
 
 		while(Button.ESCAPE.isUp()){
 			get_Data_Acce();

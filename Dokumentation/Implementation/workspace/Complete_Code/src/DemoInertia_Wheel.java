@@ -10,25 +10,25 @@ import lejos.hardware.Button;
 public class DemoInertia_Wheel {
 
 
-		static final long h= 10;
+		static final long h= 75;
 	    // sleep can only take in long which is bounded, greater than zero
 		//static final long h = 5;
 		
 		private static final double Ku = 0.004*2;
 		
-		static final double phi11 = 1.1433;
-		static final double phi12 = 0.1047;
-		static final double phi21 = 2.9329;
-		static final double phi22 = 1.1433;
+		static final double phi11 = 1.0798;
+		static final double phi12 = 0.0770;
+		static final double phi21 = 2.1558;
+		static final double phi22 = 1.0798;
 		static final double phi33 = 1;
 		
-		static final double gamma1 = -0.0346;
-		static final double gamma2 = -0.7073;
-		static final double gamma3 = 13.9762;
+		static final double gamma1 = -0.0192;
+		static final double gamma2 = -0.5199;
+		static final double gamma3 = 10.4822;
 
-		static final double l1 = -9.0380;
-		static final double l2 = -1.7793;
-		static final double l3 = -0.0109;
+		static final double l1 = -9.9363;
+		static final double l2 = -1.9731;
+		static final double l3 = -0.0132;
 		
 		//static final double l1 = -4.4379;
 		//static final double l2 = -40.4343;
